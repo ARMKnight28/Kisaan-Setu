@@ -153,11 +153,17 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 4. Hero Banner Section with Image Background */}
-      <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-14 overflow-hidden">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      {/* 4. Full-Width Hero Section with Image Background */}
+      <section 
+        className="relative bg-cover bg-center border-b border-emerald-200 py-16 overflow-hidden min-h-[360px] flex items-center"
+        style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
+      >
+        {/* White-to-transparent overlay for text contrast */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-60% to-transparent"></div>
+
+        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
           
-          <div className="lg:col-span-7 space-y-6 z-10">
+          <div className="lg:col-span-8 space-y-6">
             <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
               Digital Procurement Services <br />for Farmers
             </h2>
@@ -183,21 +189,14 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Hero Farmer Image Container */}
-          <div className="lg:col-span-5 relative flex justify-end">
-            <div 
-              className="w-full h-80 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center"
-              style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
-              
-              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded shadow text-right z-10">
-                <p className="text-sm font-black text-slate-800">Empowering Farmers</p>
-                <p className="text-sm font-black text-slate-800">Strengthening India</p>
-                <div className="flex justify-end gap-1 mt-1.5">
-                  <div className="w-6 h-1.5 bg-amber-500 rounded-full"></div>
-                  <div className="w-6 h-1.5 bg-emerald-700 rounded-full"></div>
-                </div>
+          {/* Right Tagline Card Overlay */}
+          <div className="lg:col-span-4 flex justify-end">
+            <div className="bg-white/90 backdrop-blur-md px-5 py-4 rounded-xl border border-white/80 shadow-lg text-right hidden sm:block">
+              <p className="text-base font-black text-slate-800">Empowering Farmers</p>
+              <p className="text-base font-black text-slate-800">Strengthening India</p>
+              <div className="flex justify-end gap-1.5 mt-2">
+                <div className="w-7 h-1.5 bg-amber-500 rounded-full"></div>
+                <div className="w-7 h-1.5 bg-emerald-700 rounded-full"></div>
               </div>
             </div>
           </div>
