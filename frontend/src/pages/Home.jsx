@@ -185,7 +185,7 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Text Tagline in Top Right Corner (Left-Aligned Text Block) */}
+          {/* Right Text Tagline - TOP RIGHT SKY AREA (Left-Aligned Text Block) */}
           <div className="lg:col-span-4 flex justify-end items-start pt-1">
             <div className="text-left inline-block">
               <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight tracking-tight">Empowering Farmers</p>
