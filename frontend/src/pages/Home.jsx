@@ -155,7 +155,7 @@ export default function Home() {
           <div className="lg:col-span-8 space-y-5 relative">
             
             {/* Subtle soft light patch behind text only for readability */}
-            <div className="absolute -inset-4 bg-white/35 blur-lg rounded-full -z-10 pointer-events-none"></div>
+            <div className="absolute -inset-4 bg-white/50 blur-md rounded-full -z-10 pointer-events-none"></div>
 
             <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight drop-shadow-sm">
               Digital Procurement Services <br />for Farmers
