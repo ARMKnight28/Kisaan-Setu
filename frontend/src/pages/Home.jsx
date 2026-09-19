@@ -18,7 +18,6 @@ import {
   UserPlus,
   MapPin,
   Sprout,
-  ShieldAlert,
   Globe,
   Search
 } from 'lucide-react';
@@ -80,15 +79,6 @@ export default function Home() {
             </select>
           </div>
         </div>
-      </div>
-
-      {/* Disclaimer Notice Banner */}
-      <div className="bg-amber-50 border-b border-amber-200 px-8 py-1.5 text-xs font-bold text-amber-900 flex items-center justify-between">
-        <span className="flex items-center gap-1.5">
-          <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0" />
-          <span>Demonstration Prototype for Smart India Hackathon (SIH) 2026 — Not an Official Government Portal</span>
-        </span>
-        <span className="text-amber-700 font-semibold">Team Project Showcase</span>
       </div>
 
       {/* 2. Main Brand Header */}
@@ -159,17 +149,18 @@ export default function Home() {
         className="relative bg-cover bg-center border-b border-emerald-200 py-16 sm:py-20 overflow-hidden"
         style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
       >
-        {/* Smooth, subtle radial white glow behind left text for enhanced readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white/75 via-white/45 to-transparent pointer-events-none"></div>
-
-        <div className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
+        <div className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start z-10">
           
-          {/* Left Text Block */}
-          <div className="lg:col-span-8 space-y-5">
-            <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
+          {/* Left Text Block with localized subtle background glow */}
+          <div className="lg:col-span-8 space-y-5 relative">
+            
+            {/* Subtle light patch behind text only for readability */}
+            <div className="absolute -inset-4 bg-white/40 blur-xl rounded-full -z-10 pointer-events-none"></div>
+
+            <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight drop-shadow-sm">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed max-w-2xl">
+            <p className="text-slate-900 text-base sm:text-lg font-bold leading-relaxed max-w-2xl drop-shadow-sm">
               Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
             </p>
 
@@ -177,7 +168,7 @@ export default function Home() {
               {/* Dark Green Solid Button */}
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-900 hover:bg-emerald-950 text-white px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 shadow-md border border-emerald-950 transition"
+                className="bg-emerald-900 hover:bg-emerald-950 text-white px-7 py-3 rounded-md font-bold text-sm flex items-center space-x-2.5 shadow-md border border-emerald-950 transition"
               >
                 <Calendar className="w-4 h-4 text-emerald-300" />
                 <span>Book a Procurement Slot</span>
@@ -186,7 +177,7 @@ export default function Home() {
               {/* Light Semi-Translucent Outline Button */}
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-white/80 hover:bg-white text-slate-900 border-2 border-slate-800 px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 transition shadow-sm"
+                className="bg-white/80 hover:bg-white text-slate-900 border-2 border-slate-800 px-7 py-3 rounded-md font-bold text-sm flex items-center space-x-2.5 transition shadow-sm"
               >
                 <Search className="w-4 h-4 text-slate-800" />
                 <span>Track My Status</span>
@@ -194,14 +185,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Text Tagline Directly Over Sky */}
+          {/* Right Text Tagline in Top Right Corner with Full Tricolor Underline */}
           <div className="lg:col-span-4 flex justify-end">
-            <div className="text-right space-y-1">
-              <p className="text-sm font-extrabold text-slate-800 leading-tight">Empowering Farmers</p>
-              <p className="text-sm font-extrabold text-slate-800 leading-tight">Strengthening India</p>
-              <div className="flex justify-end gap-1 pt-1">
-                <div className="w-5 h-1 bg-amber-500 rounded-full"></div>
-                <div className="w-5 h-1 bg-emerald-800 rounded-full"></div>
+            <div className="text-right inline-block pt-1">
+              <p className="text-sm font-black text-slate-900 leading-snug tracking-tight">Empowering Farmers</p>
+              <p className="text-sm font-black text-slate-900 leading-snug tracking-tight">Strengthening India</p>
+              
+              {/* Full-Width Tricolor Bar Underline */}
+              <div className="flex h-1.5 w-full mt-1.5 rounded-full overflow-hidden shadow-xs">
+                <div className="w-1/3 bg-amber-500"></div>
+                <div className="w-1/3 bg-white"></div>
+                <div className="w-1/3 bg-emerald-700"></div>
               </div>
             </div>
           </div>
