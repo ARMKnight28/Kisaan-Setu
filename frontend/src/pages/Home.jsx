@@ -16,81 +16,10 @@ import {
   Sun,
   LogIn,
   UserPlus,
-  MapPin
+  MapPin,
+  Sprout,
+  ShieldAlert
 } from 'lucide-react';
-
-// Custom SVG Graphic for the Indian National Flag
-const IndiaFlag = ({ className = "w-5 h-3.5" }) => (
-  <svg className={`${className} shadow-sm rounded-sm shrink-0`} viewBox="0 0 640 426" xmlns="http://www.w3.org/2000/svg">
-    <path fill="#f93" d="M0 0h640v142H0z"/>
-    <path fill="#fff" d="M0 142h640v142H0z"/>
-    <path fill="#128807" d="M0 284h640v142H0z"/>
-    <g transform="translate(320 213)">
-      <circle r="60" fill="none" stroke="#000080" strokeWidth="6"/>
-      <circle r="12" fill="#000080"/>
-      {[...Array(24)].map((_, i) => (
-        <line
-          key={i}
-          x1="0"
-          y1="0"
-          x2="0"
-          y2="-60"
-          stroke="#000080"
-          strokeWidth="3"
-          transform={`rotate(${i * 15})`}
-        />
-      ))}
-    </g>
-  </svg>
-);
-
-// High-Precision Official State Emblem of India (Ashoka Lion Capital)
-const StateEmblem = ({ className = "w-8 h-12" }) => (
-  <svg className={`${className} shrink-0`} viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
-    {/* Top Lions Group */}
-    <g fill="#1e293b">
-      {/* Central Lion */}
-      <path d="M100 20C85 20 75 32 75 50C75 68 80 85 85 105H115C120 85 125 68 125 50C125 32 115 20 100 20Z"/>
-      <circle cx="90" cy="40" r="3" fill="#ffffff"/>
-      <circle cx="110" cy="40" r="3" fill="#ffffff"/>
-      <path d="M92 52Q100 58 108 52" stroke="#ffffff" strokeWidth="2" fill="none"/>
-      {/* Mane Texture */}
-      <path d="M80 45C70 55 72 75 82 85M120 45C130 55 128 75 118 85" stroke="#1e293b" strokeWidth="4" strokeLinecap="round"/>
-      <path d="M85 30C75 38 78 58 85 70M115 30C125 38 122 58 115 70" stroke="#1e293b" strokeWidth="3"/>
-
-      {/* Left Lion (Profile) */}
-      <path d="M78 40C65 42 55 55 52 75C50 88 58 100 68 105H84C78 92 75 70 78 40Z"/>
-      
-      {/* Right Lion (Profile) */}
-      <path d="M122 40C135 42 145 55 148 75C150 88 142 100 132 105H116C122 92 125 70 122 40Z"/>
-    </g>
-
-    {/* Abacus / Circular Pedestal Base */}
-    <rect x="40" y="105" width="120" height="35" rx="4" fill="#334155"/>
-    <rect x="44" y="108" width="112" height="29" rx="2" fill="#e2e8f0"/>
-
-    {/* Ashoka Chakra on Abacus */}
-    <g transform="translate(100, 122.5)">
-      <circle r="11" fill="none" stroke="#0f172a" strokeWidth="2"/>
-      <circle r="2.5" fill="#0f172a"/>
-      {[...Array(12)].map((_, i) => (
-        <line key={i} x1="0" y1="0" x2="0" y2="-11" stroke="#0f172a" strokeWidth="1.2" transform={`rotate(${i * 30})`}/>
-      ))}
-    </g>
-
-    {/* Galloping Horse (Left) & Bull (Right) Relief Icons */}
-    <path d="M55 122C50 120 46 125 50 128C54 130 58 122 55 122Z" fill="#0f172a"/>
-    <path d="M145 122C140 120 136 125 140 128C144 130 148 122 145 122Z" fill="#0f172a"/>
-
-    {/* Bell Shaped Lotus Base */}
-    <path d="M50 140L150 140L140 170L60 170Z" fill="#1e293b"/>
-    <path d="M60 170C60 185 80 192 100 192C120 192 140 185 140 170Z" fill="#334155"/>
-
-    {/* Satyameva Jayate Inscription (Devanagari Style Graphic Bar) */}
-    <rect x="45" y="198" width="110" height="14" rx="2" fill="#0f172a"/>
-    <text x="100" y="209" fill="#ffffff" fontSize="9" fontWeight="900" textAnchor="middle" letterSpacing="1">सत्यमेव जयते</text>
-  </svg>
-);
 
 export default function Home() {
   const navigate = useNavigate();
@@ -109,10 +38,10 @@ export default function Home() {
       {/* 1. Top Government Utility Strip */}
       <div className="bg-slate-100 border-b border-slate-200 text-xs text-slate-600 px-8 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 font-semibold text-slate-700">
-          <IndiaFlag className="w-5 h-3.5" />
-          <span>भारत सरकार</span>
+          <Sprout className="w-4 h-4 text-emerald-800" />
+          <span>कृषि एवं किसान कल्याण मंच</span>
           <span className="text-slate-400">|</span>
-          <span>Government of India</span>
+          <span>SIH 2026 Innovation Portal</span>
         </div>
         <div className="flex items-center space-x-4 font-medium text-xs">
           <button className="hover:text-slate-900">Skip to main content</button>
@@ -137,13 +66,26 @@ export default function Home() {
         </div>
       </div>
 
+      {/* Disclaimer Notice Banner */}
+      <div className="bg-amber-50 border-b border-amber-200 px-8 py-1.5 text-[11px] font-bold text-amber-900 flex items-center justify-between">
+        <span className="flex items-center gap-1.5">
+          <ShieldAlert className="w-3.5 h-3.5 text-amber-700" />
+          <span>Demonstration Prototype for Smart India Hackathon (SIH) 2026 — Not an Official Government Portal</span>
+        </span>
+        <span className="text-amber-700">Team Project Showcase</span>
+      </div>
+
       {/* 2. Main Brand Header */}
       <header className="bg-white px-8 py-4 flex justify-between items-center border-b border-slate-200 shadow-sm">
         <div className="flex items-center space-x-5">
-          <StateEmblem className="w-9 h-14" />
+          
+          {/* Reserved Empty Space for Logo / Emblem (w-9 h-12) */}
+          <div className="w-9 h-12 shrink-0"></div>
+
           <div className="border-l border-slate-300 pl-5 py-1">
             <div className="flex items-center space-x-2">
               <h1 className="text-3xl font-black text-emerald-950 tracking-tight">Kisaan Setu</h1>
+              <span className="text-emerald-600 font-bold text-xl">🌿</span>
             </div>
             <p className="text-xs text-slate-500 font-bold tracking-wide mt-0.5">Digital Procurement Management Platform</p>
           </div>
@@ -464,7 +406,8 @@ export default function Home() {
         <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           
           <div className="flex items-center space-x-4">
-            <StateEmblem className="w-7 h-10 text-emerald-200" />
+            {/* Reserved Empty Space for Footer Logo (w-7 h-10) */}
+            <div className="w-7 h-10 shrink-0"></div>
             <div>
               <p className="font-black text-white text-base">Kisaan Setu</p>
               <p className="text-xs text-emerald-300 font-medium">Digital Procurement Management Platform</p>
@@ -512,7 +455,7 @@ export default function Home() {
         </div>
 
         <div className="max-w-7xl mx-auto px-8 mt-6 pt-4 border-t border-emerald-900/80 text-center text-emerald-400/80 text-xs font-semibold">
-          This is a demo website for SIH (Smart India Hackathon) 2026.
+          This is a prototype web application developed for SIH (Smart India Hackathon) 2026.
         </div>
       </footer>
 
