@@ -153,50 +153,50 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 4. Full-Width Hero Section with Image Background */}
+      {/* 4. Full-Width Hero Banner with Background Image */}
       <section 
-        className="relative bg-cover bg-center border-b border-emerald-200 py-16 overflow-hidden min-h-[360px] flex items-center"
+        className="relative bg-cover bg-center border-b border-emerald-200 py-16 sm:py-20 overflow-hidden"
         style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
       >
-        {/* White-to-transparent overlay for text contrast */}
-        <div className="absolute inset-0 bg-gradient-to-r from-white via-white/95 via-60% to-transparent"></div>
+        {/* Soft gradient overlay to ensure text stays crystal clear & readable */}
+        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/85 via-emerald-900/70 to-emerald-950/40"></div>
 
-        <div className="max-w-7xl mx-auto px-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10">
+        <div className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
           
           <div className="lg:col-span-8 space-y-6">
-            <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
+            <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight drop-shadow-md">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-slate-700 text-lg font-semibold leading-relaxed max-w-2xl">
+            <p className="text-emerald-50 text-lg font-semibold leading-relaxed max-w-2xl drop-shadow">
               Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-2">
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-900 hover:bg-emerald-950 text-white px-8 py-4 rounded-md font-bold text-base flex items-center space-x-3 shadow-md transition"
+                className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-8 py-4 rounded-md font-black text-base flex items-center space-x-3 shadow-lg transition"
               >
-                <Calendar className="w-5 h-5 text-emerald-300" />
+                <Calendar className="w-5 h-5 text-slate-950" />
                 <span>Book a Procurement Slot</span>
               </button>
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-white hover:bg-emerald-50 text-emerald-950 border-2 border-emerald-300 px-8 py-4 rounded-md font-bold text-base flex items-center space-x-3 transition shadow-sm"
+                className="bg-white/90 hover:bg-white text-emerald-950 border-2 border-white px-8 py-4 rounded-md font-black text-base flex items-center space-x-3 transition shadow-md"
               >
-                <LineChart className="w-5 h-5 text-emerald-800" />
+                <LineChart className="w-5 h-5 text-emerald-900" />
                 <span>Track My Status</span>
               </button>
             </div>
           </div>
 
-          {/* Right Tagline Card Overlay */}
+          {/* Top-Right Floating Tagline Badge */}
           <div className="lg:col-span-4 flex justify-end">
-            <div className="bg-white/90 backdrop-blur-md px-5 py-4 rounded-xl border border-white/80 shadow-lg text-right hidden sm:block">
-              <p className="text-base font-black text-slate-800">Empowering Farmers</p>
-              <p className="text-base font-black text-slate-800">Strengthening India</p>
-              <div className="flex justify-end gap-1.5 mt-2">
-                <div className="w-7 h-1.5 bg-amber-500 rounded-full"></div>
-                <div className="w-7 h-1.5 bg-emerald-700 rounded-full"></div>
+            <div className="bg-white/95 backdrop-blur-md px-5 py-3.5 rounded-lg shadow-xl border border-white/50 text-right">
+              <p className="text-sm font-black text-slate-900">Empowering Farmers</p>
+              <p className="text-sm font-black text-slate-900">Strengthening India</p>
+              <div className="flex justify-end gap-1 mt-1.5">
+                <div className="w-6 h-1.5 bg-amber-500 rounded-full"></div>
+                <div className="w-6 h-1.5 bg-emerald-700 rounded-full"></div>
               </div>
             </div>
           </div>
