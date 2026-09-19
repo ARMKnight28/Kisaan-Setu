@@ -151,11 +151,11 @@ export default function Home() {
       >
         <div className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-start z-10">
           
-          {/* Left Text Block with localized subtle background glow */}
+          {/* Left Text Block */}
           <div className="lg:col-span-8 space-y-5 relative">
             
-            {/* Subtle light patch behind text only for readability */}
-            <div className="absolute -inset-4 bg-white/40 blur-xl rounded-full -z-10 pointer-events-none"></div>
+            {/* Subtle soft light patch behind text only for readability */}
+            <div className="absolute -inset-4 bg-white/35 blur-lg rounded-full -z-10 pointer-events-none"></div>
 
             <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight drop-shadow-sm">
               Digital Procurement Services <br />for Farmers
@@ -185,17 +185,17 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Right Text Tagline in Top Right Corner with Full Tricolor Underline */}
-          <div className="lg:col-span-4 flex justify-end">
-            <div className="text-right inline-block pt-1">
-              <p className="text-sm font-black text-slate-900 leading-snug tracking-tight">Empowering Farmers</p>
-              <p className="text-sm font-black text-slate-900 leading-snug tracking-tight">Strengthening India</p>
+          {/* Right Text Tagline in Top Right Corner (Left-Aligned Text Block) */}
+          <div className="lg:col-span-4 flex justify-end items-start pt-1">
+            <div className="text-left inline-block">
+              <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight tracking-tight">Empowering Farmers</p>
+              <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight tracking-tight mt-0.5">Strengthening India</p>
               
-              {/* Full-Width Tricolor Bar Underline */}
-              <div className="flex h-1.5 w-full mt-1.5 rounded-full overflow-hidden shadow-xs">
+              {/* Full-Width Tricolor Bar Underline directly beneath text */}
+              <div className="flex h-1 w-full mt-1.5 rounded-full overflow-hidden shadow-xs">
                 <div className="w-1/3 bg-amber-500"></div>
                 <div className="w-1/3 bg-white"></div>
-                <div className="w-1/3 bg-emerald-700"></div>
+                <div className="w-1/3 bg-emerald-800"></div>
               </div>
             </div>
           </div>
