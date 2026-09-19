@@ -19,7 +19,8 @@ import {
   MapPin,
   Sprout,
   ShieldAlert,
-  Globe
+  Globe,
+  Search
 } from 'lucide-react';
 
 export default function Home() {
@@ -153,50 +154,54 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 4. Full-Width Hero Banner with Background Image */}
+      {/* 4. Full-Width Hero Banner Section */}
       <section 
         className="relative bg-cover bg-center border-b border-emerald-200 py-16 sm:py-20 overflow-hidden"
         style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
       >
-        {/* Soft gradient overlay to ensure text stays crystal clear & readable */}
-        <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/85 via-emerald-900/70 to-emerald-950/40"></div>
+        {/* Smooth, subtle radial white glow behind left text for enhanced readability */}
+        <div className="absolute inset-0 bg-gradient-to-r from-white/75 via-white/45 to-transparent pointer-events-none"></div>
 
         <div className="relative max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center z-10">
           
-          <div className="lg:col-span-8 space-y-6">
-            <h2 className="text-4xl sm:text-5xl font-black text-white leading-tight drop-shadow-md">
+          {/* Left Text Block */}
+          <div className="lg:col-span-8 space-y-5">
+            <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-emerald-50 text-lg font-semibold leading-relaxed max-w-2xl drop-shadow">
+            <p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed max-w-2xl">
               Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap items-center gap-4 pt-2">
+              {/* Dark Green Solid Button */}
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-500 hover:bg-emerald-600 text-slate-950 px-8 py-4 rounded-md font-black text-base flex items-center space-x-3 shadow-lg transition"
+                className="bg-emerald-900 hover:bg-emerald-950 text-white px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 shadow-md border border-emerald-950 transition"
               >
-                <Calendar className="w-5 h-5 text-slate-950" />
+                <Calendar className="w-4 h-4 text-emerald-300" />
                 <span>Book a Procurement Slot</span>
               </button>
+
+              {/* Light Semi-Translucent Outline Button */}
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-white/90 hover:bg-white text-emerald-950 border-2 border-white px-8 py-4 rounded-md font-black text-base flex items-center space-x-3 transition shadow-md"
+                className="bg-white/80 hover:bg-white text-slate-900 border-2 border-slate-800 px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 transition shadow-sm"
               >
-                <LineChart className="w-5 h-5 text-emerald-900" />
+                <Search className="w-4 h-4 text-slate-800" />
                 <span>Track My Status</span>
               </button>
             </div>
           </div>
 
-          {/* Top-Right Floating Tagline Badge */}
+          {/* Right Text Tagline Directly Over Sky */}
           <div className="lg:col-span-4 flex justify-end">
-            <div className="bg-white/95 backdrop-blur-md px-5 py-3.5 rounded-lg shadow-xl border border-white/50 text-right">
-              <p className="text-sm font-black text-slate-900">Empowering Farmers</p>
-              <p className="text-sm font-black text-slate-900">Strengthening India</p>
-              <div className="flex justify-end gap-1 mt-1.5">
-                <div className="w-6 h-1.5 bg-amber-500 rounded-full"></div>
-                <div className="w-6 h-1.5 bg-emerald-700 rounded-full"></div>
+            <div className="text-right space-y-1">
+              <p className="text-sm font-extrabold text-slate-800 leading-tight">Empowering Farmers</p>
+              <p className="text-sm font-extrabold text-slate-800 leading-tight">Strengthening India</p>
+              <div className="flex justify-end gap-1 pt-1">
+                <div className="w-5 h-1 bg-amber-500 rounded-full"></div>
+                <div className="w-5 h-1 bg-emerald-800 rounded-full"></div>
               </div>
             </div>
           </div>
