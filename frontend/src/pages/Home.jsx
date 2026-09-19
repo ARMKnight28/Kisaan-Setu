@@ -44,23 +44,51 @@ const IndiaFlag = ({ className = "w-5 h-3.5" }) => (
   </svg>
 );
 
-// Custom SVG Graphic for the State Emblem of India (Ashoka Pillar Capital)
-const StateEmblem = ({ className = "w-6 h-8" }) => (
-  <svg className={`${className} shrink-0 fill-current text-slate-800`} viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
-    {/* Base Pedestal */}
-    <path d="M20,110 L80,110 L75,100 L25,100 Z"/>
-    <rect x="30" y="95" width="40" height="5" rx="2"/>
-    {/* Ashoka Chakra Center */}
-    <circle cx="50" cy="85" r="8" fill="none" stroke="currentColor" strokeWidth="2"/>
-    <circle cx="50" cy="85" r="2"/>
-    {/* Abacus Base */}
-    <path d="M15,75 L85,75 L80,95 L20,95 Z" opacity="0.9"/>
-    {/* Central Lion Body */}
-    <path d="M35,35 C35,20 40,10 50,10 C60,10 65,20 65,35 C65,50 60,75 50,75 C40,75 35,50 35,35 Z"/>
-    {/* Lion Mane Details */}
-    <path d="M38,25 C42,20 45,28 50,22 C55,28 58,20 62,25 C65,32 60,40 50,45 C40,40 35,32 38,25 Z" opacity="0.7"/>
-    {/* Crown Crest */}
-    <polygon points="50,2 54,8 46,8"/>
+// High-Precision Official State Emblem of India (Ashoka Lion Capital)
+const StateEmblem = ({ className = "w-8 h-12" }) => (
+  <svg className={`${className} shrink-0`} viewBox="0 0 200 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+    {/* Top Lions Group */}
+    <g fill="#1e293b">
+      {/* Central Lion */}
+      <path d="M100 20C85 20 75 32 75 50C75 68 80 85 85 105H115C120 85 125 68 125 50C125 32 115 20 100 20Z"/>
+      <circle cx="90" cy="40" r="3" fill="#ffffff"/>
+      <circle cx="110" cy="40" r="3" fill="#ffffff"/>
+      <path d="M92 52Q100 58 108 52" stroke="#ffffff" strokeWidth="2" fill="none"/>
+      {/* Mane Texture */}
+      <path d="M80 45C70 55 72 75 82 85M120 45C130 55 128 75 118 85" stroke="#1e293b" strokeWidth="4" strokeLinecap="round"/>
+      <path d="M85 30C75 38 78 58 85 70M115 30C125 38 122 58 115 70" stroke="#1e293b" strokeWidth="3"/>
+
+      {/* Left Lion (Profile) */}
+      <path d="M78 40C65 42 55 55 52 75C50 88 58 100 68 105H84C78 92 75 70 78 40Z"/>
+      
+      {/* Right Lion (Profile) */}
+      <path d="M122 40C135 42 145 55 148 75C150 88 142 100 132 105H116C122 92 125 70 122 40Z"/>
+    </g>
+
+    {/* Abacus / Circular Pedestal Base */}
+    <rect x="40" y="105" width="120" height="35" rx="4" fill="#334155"/>
+    <rect x="44" y="108" width="112" height="29" rx="2" fill="#e2e8f0"/>
+
+    {/* Ashoka Chakra on Abacus */}
+    <g transform="translate(100, 122.5)">
+      <circle r="11" fill="none" stroke="#0f172a" strokeWidth="2"/>
+      <circle r="2.5" fill="#0f172a"/>
+      {[...Array(12)].map((_, i) => (
+        <line key={i} x1="0" y1="0" x2="0" y2="-11" stroke="#0f172a" strokeWidth="1.2" transform={`rotate(${i * 30})`}/>
+      ))}
+    </g>
+
+    {/* Galloping Horse (Left) & Bull (Right) Relief Icons */}
+    <path d="M55 122C50 120 46 125 50 128C54 130 58 122 55 122Z" fill="#0f172a"/>
+    <path d="M145 122C140 120 136 125 140 128C144 130 148 122 145 122Z" fill="#0f172a"/>
+
+    {/* Bell Shaped Lotus Base */}
+    <path d="M50 140L150 140L140 170L60 170Z" fill="#1e293b"/>
+    <path d="M60 170C60 185 80 192 100 192C120 192 140 185 140 170Z" fill="#334155"/>
+
+    {/* Satyameva Jayate Inscription (Devanagari Style Graphic Bar) */}
+    <rect x="45" y="198" width="110" height="14" rx="2" fill="#0f172a"/>
+    <text x="100" y="209" fill="#ffffff" fontSize="9" fontWeight="900" textAnchor="middle" letterSpacing="1">सत्यमेव जयते</text>
   </svg>
 );
 
@@ -79,29 +107,29 @@ export default function Home() {
     <div className="min-h-screen bg-slate-50 text-slate-800 font-sans antialiased">
       
       {/* 1. Top Government Utility Strip */}
-      <div className="bg-slate-100 border-b border-slate-200 text-[11px] text-slate-600 px-8 py-1.5 flex justify-between items-center">
+      <div className="bg-slate-100 border-b border-slate-200 text-xs text-slate-600 px-8 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 font-semibold text-slate-700">
-          <IndiaFlag className="w-4 h-3" />
+          <IndiaFlag className="w-5 h-3.5" />
           <span>भारत सरकार</span>
           <span className="text-slate-400">|</span>
           <span>Government of India</span>
         </div>
-        <div className="flex items-center space-x-4 font-medium">
+        <div className="flex items-center space-x-4 font-medium text-xs">
           <button className="hover:text-slate-900">Skip to main content</button>
           <span className="text-slate-300">|</span>
           <button className="hover:text-slate-900">Skip to navigation</button>
           <span className="text-slate-300">|</span>
           <button className="hover:text-slate-900">Screen Reader</button>
           <span className="text-slate-300">|</span>
-          <div className="flex items-center space-x-1 font-bold">
+          <div className="flex items-center space-x-1.5 font-bold">
             <button className="hover:text-slate-900">A+</button>
             <button className="hover:text-slate-900">A</button>
             <button className="hover:text-slate-900">A-</button>
           </div>
           <span className="text-slate-300">|</span>
-          <button className="p-0.5 hover:text-slate-900"><Sun className="w-3 h-3" /></button>
+          <button className="p-0.5 hover:text-slate-900"><Sun className="w-3.5 h-3.5" /></button>
           <span className="text-slate-300">|</span>
-          <div className="space-x-1 font-bold">
+          <div className="space-x-1.5 font-bold">
             <button className="hover:text-emerald-800">हिंदी</button>
             <span className="text-slate-400">|</span>
             <button className="text-emerald-900 font-extrabold">English</button>
@@ -111,37 +139,37 @@ export default function Home() {
 
       {/* 2. Main Brand Header */}
       <header className="bg-white px-8 py-4 flex justify-between items-center border-b border-slate-200 shadow-sm">
-        <div className="flex items-center space-x-4">
-          <StateEmblem className="w-7 h-9 text-slate-800" />
-          <div className="border-l border-slate-300 pl-4">
-            <div className="flex items-center space-x-1.5">
-              <h1 className="text-2xl font-black text-emerald-950 tracking-tight">Kisaan Setu</h1>
+        <div className="flex items-center space-x-5">
+          <StateEmblem className="w-9 h-14" />
+          <div className="border-l border-slate-300 pl-5 py-1">
+            <div className="flex items-center space-x-2">
+              <h1 className="text-3xl font-black text-emerald-950 tracking-tight">Kisaan Setu</h1>
             </div>
-            <p className="text-xs text-slate-500 font-semibold tracking-wide">Digital Procurement Management Platform</p>
+            <p className="text-xs text-slate-500 font-bold tracking-wide mt-0.5">Digital Procurement Management Platform</p>
           </div>
         </div>
 
         <div className="flex items-center space-x-3">
           <button 
             onClick={() => navigate('/login')}
-            className="border-2 border-emerald-900 text-emerald-900 hover:bg-emerald-50 px-5 py-2 rounded-md font-bold text-xs flex items-center space-x-1.5 transition"
+            className="border-2 border-emerald-900 text-emerald-900 hover:bg-emerald-50 px-6 py-2.5 rounded-md font-bold text-sm flex items-center space-x-2 transition"
           >
-            <LogIn className="w-3.5 h-3.5" />
+            <LogIn className="w-4 h-4" />
             <span>Login</span>
           </button>
           <button 
             onClick={() => navigate('/login?role=farmer')}
-            className="bg-emerald-900 hover:bg-emerald-950 text-white px-5 py-2 rounded-md font-bold text-xs flex items-center space-x-1.5 transition shadow-sm"
+            className="bg-emerald-900 hover:bg-emerald-950 text-white px-6 py-2.5 rounded-md font-bold text-sm flex items-center space-x-2 transition shadow-sm"
           >
-            <UserPlus className="w-3.5 h-3.5" />
+            <UserPlus className="w-4 h-4" />
             <span>Sign Up</span>
           </button>
         </div>
       </header>
 
       {/* 3. Deep Green Navigation Menu */}
-      <nav className="bg-emerald-950 text-white text-xs font-bold px-8">
-        <div className="max-w-7xl mx-auto flex space-x-1">
+      <nav className="bg-emerald-950 text-white text-sm font-bold px-8">
+        <div className="max-w-7xl mx-auto flex space-x-2">
           {[
             { id: 'home', label: 'Home' },
             { id: 'about', label: 'About Us' },
@@ -154,7 +182,7 @@ export default function Home() {
             <button
               key={item.id}
               onClick={() => setActiveNav(item.id)}
-              className={`px-5 py-3 transition relative ${
+              className={`px-6 py-3.5 transition relative ${
                 activeNav === item.id 
                   ? 'bg-emerald-900 text-white font-extrabold shadow-inner' 
                   : 'hover:bg-emerald-900/50 text-slate-200'
@@ -162,7 +190,7 @@ export default function Home() {
             >
               {item.label}
               {activeNav === item.id && (
-                <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-emerald-400"></span>
+                <span className="absolute bottom-0 left-0 right-0 h-1 bg-emerald-400"></span>
               )}
             </button>
           ))}
@@ -170,45 +198,45 @@ export default function Home() {
       </nav>
 
       {/* 4. Hero Banner Section */}
-      <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-16 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-12 overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <div className="lg:col-span-7 space-y-6 z-10">
-            <h2 className="text-3xl sm:text-4xl font-black text-emerald-950 leading-tight">
+          <div className="lg:col-span-7 space-y-5 z-10">
+            <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-slate-700 text-sm font-medium leading-relaxed max-w-xl">
+            <p className="text-slate-700 text-base font-semibold leading-relaxed max-w-xl">
               Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-2">
+            <div className="flex flex-wrap gap-4 pt-3">
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-900 hover:bg-emerald-950 text-white px-6 py-3 rounded-md font-bold text-xs flex items-center space-x-2 shadow-md transition"
+                className="bg-emerald-900 hover:bg-emerald-950 text-white px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 shadow-md transition"
               >
-                <Calendar className="w-4 h-4 text-emerald-300" />
+                <Calendar className="w-5 h-5 text-emerald-300" />
                 <span>Book a Procurement Slot</span>
               </button>
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-100/80 hover:bg-emerald-200 text-emerald-950 border border-emerald-300 px-6 py-3 rounded-md font-bold text-xs flex items-center space-x-2 transition"
+                className="bg-white hover:bg-emerald-50 text-emerald-950 border-2 border-emerald-300 px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 transition shadow-sm"
               >
-                <LineChart className="w-4 h-4 text-emerald-800" />
+                <LineChart className="w-5 h-5 text-emerald-800" />
                 <span>Track My Status</span>
               </button>
             </div>
           </div>
 
           <div className="lg:col-span-5 relative flex justify-end">
-            <div className="w-full h-64 bg-emerald-800/10 rounded-2xl overflow-hidden border-2 border-emerald-200/60 shadow-lg relative flex items-center justify-center bg-cover bg-center">
+            <div className="w-full h-72 bg-emerald-800/10 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center">
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
               
-              <div className="absolute top-4 right-4 bg-white/90 backdrop-blur-sm px-3 py-2 rounded shadow text-right">
-                <p className="text-[11px] font-extrabold text-slate-800">Empowering Farmers</p>
-                <p className="text-[11px] font-extrabold text-slate-800">Strengthening India</p>
+              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded shadow text-right">
+                <p className="text-xs font-black text-slate-800">Empowering Farmers</p>
+                <p className="text-xs font-black text-slate-800">Strengthening India</p>
                 <div className="flex justify-end gap-1 mt-1">
-                  <div className="w-4 h-1 bg-amber-500 rounded-full"></div>
-                  <div className="w-4 h-1 bg-emerald-700 rounded-full"></div>
+                  <div className="w-5 h-1 bg-amber-500 rounded-full"></div>
+                  <div className="w-5 h-1 bg-emerald-700 rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -218,46 +246,46 @@ export default function Home() {
       </section>
 
       {/* 5. Four Key Feature Badges */}
-      <section className="bg-white py-10 border-b border-slate-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+      <section className="bg-white py-8 border-b border-slate-200 shadow-sm">
+        <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Calendar className="w-6 h-6" />
+            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Calendar className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-sm">Slot Booking</h3>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Choose a convenient procurement date and time.</p>
+              <h3 className="font-extrabold text-slate-900 text-base">Slot Booking</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Choose a convenient procurement date and time.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Users className="w-6 h-6" />
+            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Users className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-sm">Real-Time Queue</h3>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Know your queue position and estimated waiting time.</p>
+              <h3 className="font-extrabold text-slate-900 text-base">Real-Time Queue</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Know your queue position and estimated waiting time.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Bell className="w-6 h-6" />
+            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Bell className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-sm">Smart Notifications</h3>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Receive updates on your slot, procurement and payment status.</p>
+              <h3 className="font-extrabold text-slate-900 text-base">Smart Notifications</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Receive updates on your slot, procurement and payment status.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="p-3 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <IndianRupee className="w-6 h-6" />
+            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <IndianRupee className="w-7 h-7" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-sm">Payment Tracking</h3>
-              <p className="text-xs text-slate-500 mt-1 leading-relaxed">Track your procurement and payment status easily.</p>
+              <h3 className="font-extrabold text-slate-900 text-base">Payment Tracking</h3>
+              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Track your procurement and payment status easily.</p>
             </div>
           </div>
 
@@ -265,88 +293,88 @@ export default function Home() {
       </section>
 
       {/* 6. How Kisaan Setu Works + Announcements */}
-      <section className="py-12 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="py-10 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <div className="lg:col-span-8 bg-emerald-50/50 p-6 rounded-lg border border-emerald-100">
-          <h3 className="text-lg font-black text-slate-900 mb-6">How Kisaan Setu Works</h3>
+        <div className="lg:col-span-8 bg-emerald-50/60 p-7 rounded-xl border border-emerald-200 shadow-sm">
+          <h3 className="text-xl font-black text-slate-900 mb-6">How Kisaan Setu Works</h3>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
             
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-col items-center space-y-2.5 flex-1">
               <div className="relative">
-                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">1</span>
-                <div className="p-3 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow-sm"><UserCheck className="w-6 h-6" /></div>
+                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">1</span>
+                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><UserCheck className="w-7 h-7" /></div>
               </div>
-              <h4 className="font-extrabold text-xs text-slate-900">Register</h4>
-              <p className="text-[11px] text-slate-500">Create your profile on Kisaan Setu</p>
+              <h4 className="font-extrabold text-sm text-slate-900">Register</h4>
+              <p className="text-xs text-slate-600 font-medium">Create your profile on Kisaan Setu</p>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-col items-center space-y-2.5 flex-1">
               <div className="relative">
-                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">2</span>
-                <div className="p-3 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow-sm"><CalendarCheck className="w-6 h-6" /></div>
+                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">2</span>
+                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><CalendarCheck className="w-7 h-7" /></div>
               </div>
-              <h4 className="font-extrabold text-xs text-slate-900">Book Slot</h4>
-              <p className="text-[11px] text-slate-500">Select a date and time for procurement</p>
+              <h4 className="font-extrabold text-sm text-slate-900">Book Slot</h4>
+              <p className="text-xs text-slate-600 font-medium">Select a date and time for procurement</p>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-col items-center space-y-2.5 flex-1">
               <div className="relative">
-                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">3</span>
-                <div className="p-3 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow-sm"><LineChart className="w-6 h-6" /></div>
+                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">3</span>
+                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><LineChart className="w-7 h-7" /></div>
               </div>
-              <h4 className="font-extrabold text-xs text-slate-900">Track Queue</h4>
-              <p className="text-[11px] text-slate-500">View your position and estimated wait time</p>
+              <h4 className="font-extrabold text-sm text-slate-900">Track Queue</h4>
+              <p className="text-xs text-slate-600 font-medium">View your position and estimated wait time</p>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-col items-center space-y-2.5 flex-1">
               <div className="relative">
-                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">4</span>
-                <div className="p-3 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow-sm"><Truck className="w-6 h-6" /></div>
+                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">4</span>
+                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><Truck className="w-7 h-7" /></div>
               </div>
-              <h4 className="font-extrabold text-xs text-slate-900">Procurement</h4>
-              <p className="text-[11px] text-slate-500">Get your produce procured at the centre</p>
+              <h4 className="font-extrabold text-sm text-slate-900">Procurement</h4>
+              <p className="text-xs text-slate-600 font-medium">Get your produce procured at the centre</p>
             </div>
 
-            <ChevronRight className="w-4 h-4 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2 flex-1">
+            <div className="flex flex-col items-center space-y-2.5 flex-1">
               <div className="relative">
-                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-[10px] w-5 h-5 rounded-full flex items-center justify-center">5</span>
-                <div className="p-3 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow-sm"><IndianRupee className="w-6 h-6" /></div>
+                <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">5</span>
+                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><IndianRupee className="w-7 h-7" /></div>
               </div>
-              <h4 className="font-extrabold text-xs text-slate-900">Get Paid</h4>
-              <p className="text-[11px] text-slate-500">Track your payment status</p>
+              <h4 className="font-extrabold text-sm text-slate-900">Get Paid</h4>
+              <p className="text-xs text-slate-600 font-medium">Track your payment status</p>
             </div>
 
           </div>
         </div>
 
-        <div className="lg:col-span-4 bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="lg:col-span-4 bg-white p-6 rounded-xl border border-slate-200 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="flex justify-between items-center border-b border-slate-200 pb-2 mb-3">
+            <div className="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
               <div className="flex items-center space-x-2">
-                <Bell className="w-4 h-4 text-emerald-800" />
-                <h4 className="font-extrabold text-xs text-slate-900">Announcements & Updates</h4>
+                <Bell className="w-5 h-5 text-emerald-800" />
+                <h4 className="font-extrabold text-sm text-slate-900">Announcements & Updates</h4>
               </div>
-              <a href="#all" className="text-[11px] font-bold text-emerald-700 hover:underline">View All</a>
+              <a href="#all" className="text-xs font-bold text-emerald-700 hover:underline">View All</a>
             </div>
 
-            <div className="space-y-3">
+            <div className="space-y-3.5">
               {announcements.map((item) => (
-                <div key={item.id} className="flex items-start justify-between text-xs border-b border-slate-100 pb-2 last:border-0">
+                <div key={item.id} className="flex items-start justify-between text-xs border-b border-slate-100 pb-2.5 last:border-0">
                   <div className="space-y-1 pr-2">
-                    <span className={`text-[9px] text-white font-black px-1.5 py-0.5 rounded ${item.tagColor}`}>
+                    <span className={`text-[10px] text-white font-black px-2 py-0.5 rounded ${item.tagColor}`}>
                       {item.tag}
                     </span>
-                    <p className="font-bold text-slate-800 text-[11px] leading-snug">{item.title}</p>
-                    <p className="text-[10px] text-slate-400">{item.date}</p>
+                    <p className="font-bold text-slate-800 text-xs leading-snug">{item.title}</p>
+                    <p className="text-[11px] text-slate-400 font-semibold">{item.date}</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 mt-2" />
                 </div>
@@ -358,72 +386,72 @@ export default function Home() {
       </section>
 
       {/* 7. Procurement Metrics & Quick Links Bar */}
-      <section className="bg-slate-50 py-8 border-t border-slate-200">
+      <section className="bg-slate-100 py-8 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
           
           <div className="lg:col-span-8 space-y-3">
-            <p className="text-xs font-bold text-slate-600 flex items-center gap-1">
-              <MapPin className="w-3.5 h-3.5 text-emerald-800" />
+            <p className="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
+              <MapPin className="w-4 h-4 text-emerald-800" />
               <span>Procurement Centres</span>
-              <span className="text-slate-400 font-normal">(Demo Data)</span>
+              <span className="text-slate-400 font-semibold text-xs">(Demo Data)</span>
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="bg-white p-4 rounded-md border border-slate-200 shadow-sm flex items-center space-x-3">
-                <Building className="w-6 h-6 text-emerald-800 shrink-0" />
+              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
+                <Building className="w-7 h-7 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-base font-black text-slate-900">24</p>
-                  <p className="text-[10px] text-slate-500 font-medium">Centres Active</p>
+                  <p className="text-lg font-black text-slate-900">24</p>
+                  <p className="text-xs text-slate-500 font-bold">Centres Active</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-md border border-slate-200 shadow-sm flex items-center space-x-3">
-                <Users className="w-6 h-6 text-emerald-800 shrink-0" />
+              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
+                <Users className="w-7 h-7 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-base font-black text-slate-900">1,248</p>
-                  <p className="text-[10px] text-slate-500 font-medium">Farmers Registered</p>
+                  <p className="text-lg font-black text-slate-900">1,248</p>
+                  <p className="text-xs text-slate-500 font-bold">Farmers Registered</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-md border border-slate-200 shadow-sm flex items-center space-x-3">
-                <Calendar className="w-6 h-6 text-emerald-800 shrink-0" />
+              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
+                <Calendar className="w-7 h-7 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-base font-black text-slate-900">326</p>
-                  <p className="text-[10px] text-slate-500 font-medium">Slots Booked Today</p>
+                  <p className="text-lg font-black text-slate-900">326</p>
+                  <p className="text-xs text-slate-500 font-bold">Slots Booked Today</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-md border border-slate-200 shadow-sm flex items-center space-x-3">
-                <CheckCircle2 className="w-6 h-6 text-emerald-800 shrink-0" />
+              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
+                <CheckCircle2 className="w-7 h-7 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-base font-black text-slate-900">182</p>
-                  <p className="text-[10px] text-slate-500 font-medium">Procurements Completed</p>
+                  <p className="text-lg font-black text-slate-900">182</p>
+                  <p className="text-xs text-slate-500 font-bold">Procurements Completed</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-4 bg-white p-4 rounded-md border border-slate-200 shadow-sm space-y-2">
-            <p className="text-xs font-bold text-slate-800 uppercase tracking-wider flex items-center gap-1">
-              <FileText className="w-3.5 h-3.5 text-emerald-800" />
+          <div className="lg:col-span-4 bg-white p-5 rounded-lg border border-slate-200 shadow-sm space-y-3">
+            <p className="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+              <FileText className="w-4 h-4 text-emerald-800" />
               <span>Quick Links</span>
             </p>
-            <ul className="text-xs text-slate-700 font-semibold space-y-2">
+            <ul className="text-xs text-slate-700 font-bold space-y-2.5">
               <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer">
                 <span>Schemes & Guidelines</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-1.5">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
                 <span>FAQs</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-1.5">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
                 <span>Downloads</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-1.5">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
                 <span>Contact Us</span>
-                <ChevronRight className="w-3.5 h-3.5 text-slate-400" />
+                <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
             </ul>
           </div>
@@ -435,15 +463,15 @@ export default function Home() {
       <footer className="bg-emerald-950 text-slate-300 py-8 text-xs border-t border-emerald-900">
         <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           
-          <div className="flex items-center space-x-3">
-            <StateEmblem className="w-6 h-8 text-emerald-200" />
+          <div className="flex items-center space-x-4">
+            <StateEmblem className="w-7 h-10 text-emerald-200" />
             <div>
-              <p className="font-extrabold text-white text-sm">Kisaan Setu</p>
-              <p className="text-[11px] text-emerald-300">Digital Procurement Management Platform</p>
+              <p className="font-black text-white text-base">Kisaan Setu</p>
+              <p className="text-xs text-emerald-300 font-medium">Digital Procurement Management Platform</p>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 text-emerald-200 font-medium text-[11px]">
+          <div className="flex flex-wrap gap-4 text-emerald-200 font-semibold text-xs">
             <a href="#home" className="hover:text-white">Home</a>
             <span>|</span>
             <a href="#about" className="hover:text-white">About Us</a>
@@ -458,7 +486,7 @@ export default function Home() {
           </div>
 
           {/* Social Brand SVGs */}
-          <div className="flex space-x-3 text-emerald-200 items-center">
+          <div className="flex space-x-3.5 text-emerald-200 items-center">
             <a href="#" className="hover:text-white" title="YouTube">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
@@ -483,7 +511,7 @@ export default function Home() {
 
         </div>
 
-        <div className="max-w-7xl mx-auto px-8 mt-6 pt-4 border-t border-emerald-900/80 text-center text-emerald-400/80 text-[11px] font-semibold">
+        <div className="max-w-7xl mx-auto px-8 mt-6 pt-4 border-t border-emerald-900/80 text-center text-emerald-400/80 text-xs font-semibold">
           This is a demo website for SIH (Smart India Hackathon) 2026.
         </div>
       </footer>
