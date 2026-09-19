@@ -41,9 +41,8 @@ export default function Home() {
       <div className="bg-slate-100 border-b border-slate-200 text-xs text-slate-600 px-8 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 font-semibold text-slate-700">
           <Sprout className="w-4 h-4 text-emerald-800" />
-          <span>Agriculture & Farmer Welfare Portal</span>
+          <span>Consumer Affairs, Food & Public Distribution</span>
           <span className="text-slate-400">|</span>
-          <span>SIH 2026 Innovation Platform</span>
         </div>
         <div className="flex items-center space-x-4 font-medium text-xs">
           <button className="hover:text-slate-900">Skip to main content</button>
@@ -155,13 +154,13 @@ export default function Home() {
           <div className="lg:col-span-8 space-y-5 relative">
             
             {/* Subtle soft light patch behind text only for readability */}
-            <div className="absolute -inset-4 bg-white/50 blur-md rounded-full -z-10 pointer-events-none"></div>
+           <div className="absolute top-0 bottom-0 -left-8 right-20 bg-white/10 blur-md rounded-full -z-10 pointer-events-none"></div>
 
             <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight drop-shadow-sm">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-slate-900 text-base sm:text-lg font-bold leading-relaxed max-w-2xl drop-shadow-sm">
-              Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
+            <p className="text-slate-800 text-base sm:text-lg font-bold leading-relaxed max-w-2xl drop-shadow-sm">
+  	       Book your procurement slot, track your queue, know your status and get timely updates. All in one place.
             </p>
 
             <div className="flex flex-wrap items-center gap-4 pt-2">
@@ -182,21 +181,6 @@ export default function Home() {
                 <Search className="w-4 h-4 text-slate-800" />
                 <span>Track My Status</span>
               </button>
-            </div>
-          </div>
-
-          {/* Right Text Tagline - TOP RIGHT SKY AREA (Left-Aligned Text Block) */}
-          <div className="lg:col-span-4 flex justify-end items-start pt-1">
-            <div className="text-left inline-block">
-              <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight tracking-tight">Empowering Farmers</p>
-              <p className="text-xs sm:text-sm font-extrabold text-slate-800 leading-tight tracking-tight mt-0.5">Strengthening India</p>
-              
-              {/* Full-Width Tricolor Bar Underline directly beneath text */}
-              <div className="flex h-1 w-full mt-1.5 rounded-full overflow-hidden shadow-xs">
-                <div className="w-1/3 bg-amber-500"></div>
-                <div className="w-1/3 bg-white"></div>
-                <div className="w-1/3 bg-emerald-800"></div>
-              </div>
             </div>
           </div>
 
