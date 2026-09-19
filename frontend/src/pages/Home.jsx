@@ -153,7 +153,7 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* 4. Hero Banner Section */}
+      {/* 4. Hero Banner Section with Image Background */}
       <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
@@ -183,11 +183,15 @@ export default function Home() {
             </div>
           </div>
 
+          {/* Hero Farmer Image Container */}
           <div className="lg:col-span-5 relative flex justify-end">
-            <div className="w-full h-80 bg-emerald-800/10 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
+            <div 
+              className="w-full h-80 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center"
+              style={{ backgroundImage: `url('/hero-farmer.jpg')` }}
+            >
+              <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-black/20"></div>
               
-              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded shadow text-right">
+              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded shadow text-right z-10">
                 <p className="text-sm font-black text-slate-800">Empowering Farmers</p>
                 <p className="text-sm font-black text-slate-800">Strengthening India</p>
                 <div className="flex justify-end gap-1 mt-1.5">
