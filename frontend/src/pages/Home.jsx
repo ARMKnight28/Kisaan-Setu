@@ -19,6 +19,51 @@ import {
   MapPin
 } from 'lucide-react';
 
+// Custom SVG Graphic for the Indian National Flag
+const IndiaFlag = ({ className = "w-5 h-3.5" }) => (
+  <svg className={`${className} shadow-sm rounded-sm shrink-0`} viewBox="0 0 640 426" xmlns="http://www.w3.org/2000/svg">
+    <path fill="#f93" d="M0 0h640v142H0z"/>
+    <path fill="#fff" d="M0 142h640v142H0z"/>
+    <path fill="#128807" d="M0 284h640v142H0z"/>
+    <g transform="translate(320 213)">
+      <circle r="60" fill="none" stroke="#000080" strokeWidth="6"/>
+      <circle r="12" fill="#000080"/>
+      {[...Array(24)].map((_, i) => (
+        <line
+          key={i}
+          x1="0"
+          y1="0"
+          x2="0"
+          y2="-60"
+          stroke="#000080"
+          strokeWidth="3"
+          transform={`rotate(${i * 15})`}
+        />
+      ))}
+    </g>
+  </svg>
+);
+
+// Custom SVG Graphic for the State Emblem of India (Ashoka Pillar Capital)
+const StateEmblem = ({ className = "w-6 h-8" }) => (
+  <svg className={`${className} shrink-0 fill-current text-slate-800`} viewBox="0 0 100 120" xmlns="http://www.w3.org/2000/svg">
+    {/* Base Pedestal */}
+    <path d="M20,110 L80,110 L75,100 L25,100 Z"/>
+    <rect x="30" y="95" width="40" height="5" rx="2"/>
+    {/* Ashoka Chakra Center */}
+    <circle cx="50" cy="85" r="8" fill="none" stroke="currentColor" strokeWidth="2"/>
+    <circle cx="50" cy="85" r="2"/>
+    {/* Abacus Base */}
+    <path d="M15,75 L85,75 L80,95 L20,95 Z" opacity="0.9"/>
+    {/* Central Lion Body */}
+    <path d="M35,35 C35,20 40,10 50,10 C60,10 65,20 65,35 C65,50 60,75 50,75 C40,75 35,50 35,35 Z"/>
+    {/* Lion Mane Details */}
+    <path d="M38,25 C42,20 45,28 50,22 C55,28 58,20 62,25 C65,32 60,40 50,45 C40,40 35,32 38,25 Z" opacity="0.7"/>
+    {/* Crown Crest */}
+    <polygon points="50,2 54,8 46,8"/>
+  </svg>
+);
+
 export default function Home() {
   const navigate = useNavigate();
   const [activeNav, setActiveNav] = useState('home');
@@ -36,7 +81,7 @@ export default function Home() {
       {/* 1. Top Government Utility Strip */}
       <div className="bg-slate-100 border-b border-slate-200 text-[11px] text-slate-600 px-8 py-1.5 flex justify-between items-center">
         <div className="flex items-center space-x-2 font-semibold text-slate-700">
-          <span>🇮🇳</span>
+          <IndiaFlag className="w-4 h-3" />
           <span>भारत सरकार</span>
           <span className="text-slate-400">|</span>
           <span>Government of India</span>
@@ -67,11 +112,7 @@ export default function Home() {
       {/* 2. Main Brand Header */}
       <header className="bg-white px-8 py-4 flex justify-between items-center border-b border-slate-200 shadow-sm">
         <div className="flex items-center space-x-4">
-          <div className="flex flex-col items-center">
-            <div className="w-8 h-10 border-2 border-slate-800 rounded-t-full flex items-center justify-center font-bold text-[9px] text-slate-800 text-center leading-none">
-              🇮🇳
-            </div>
-          </div>
+          <StateEmblem className="w-7 h-9 text-slate-800" />
           <div className="border-l border-slate-300 pl-4">
             <div className="flex items-center space-x-1.5">
               <h1 className="text-2xl font-black text-emerald-950 tracking-tight">Kisaan Setu</h1>
@@ -390,14 +431,12 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Official Dark Green Footer with Custom Brand SVGs */}
+      {/* 8. Official Dark Green Footer */}
       <footer className="bg-emerald-950 text-slate-300 py-8 text-xs border-t border-emerald-900">
         <div className="max-w-7xl mx-auto px-8 flex flex-col md:flex-row justify-between items-center gap-6">
           
           <div className="flex items-center space-x-3">
-            <div className="w-8 h-10 border-2 border-slate-300 rounded-t-full flex items-center justify-center font-bold text-[9px] text-white">
-              🇮🇳
-            </div>
+            <StateEmblem className="w-6 h-8 text-emerald-200" />
             <div>
               <p className="font-extrabold text-white text-sm">Kisaan Setu</p>
               <p className="text-[11px] text-emerald-300">Digital Procurement Management Platform</p>
@@ -418,27 +457,23 @@ export default function Home() {
             <a href="#contact" className="hover:text-white">Contact Us</a>
           </div>
 
-          {/* Custom SVG Brand Icons (YouTube, Facebook, X/Twitter, Instagram) */}
+          {/* Social Brand SVGs */}
           <div className="flex space-x-3 text-emerald-200 items-center">
-            {/* YouTube */}
             <a href="#" className="hover:text-white" title="YouTube">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
               </svg>
             </a>
-            {/* Facebook */}
             <a href="#" className="hover:text-white" title="Facebook">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
               </svg>
             </a>
-            {/* X (Twitter) */}
             <a href="#" className="hover:text-white" title="X (Twitter)">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
               </svg>
             </a>
-            {/* Instagram */}
             <a href="#" className="hover:text-white" title="Instagram">
               <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24">
                 <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
