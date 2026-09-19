@@ -18,12 +18,14 @@ import {
   UserPlus,
   MapPin,
   Sprout,
-  ShieldAlert
+  ShieldAlert,
+  Globe
 } from 'lucide-react';
 
 export default function Home() {
   const navigate = useNavigate();
   const [activeNav, setActiveNav] = useState('home');
+  const [selectedLanguage, setSelectedLanguage] = useState('en');
 
   const announcements = [
     { id: 1, tag: 'New', tagColor: 'bg-amber-500', title: 'Slot booking for October is now open', date: '12 Sep 2026' },
@@ -39,9 +41,9 @@ export default function Home() {
       <div className="bg-slate-100 border-b border-slate-200 text-xs text-slate-600 px-8 py-2 flex justify-between items-center">
         <div className="flex items-center space-x-2 font-semibold text-slate-700">
           <Sprout className="w-4 h-4 text-emerald-800" />
-          <span>कृषि एवं किसान कल्याण मंच</span>
+          <span>Agriculture & Farmer Welfare Portal</span>
           <span className="text-slate-400">|</span>
-          <span>SIH 2026 Innovation Portal</span>
+          <span>SIH 2026 Innovation Platform</span>
         </div>
         <div className="flex items-center space-x-4 font-medium text-xs">
           <button className="hover:text-slate-900">Skip to main content</button>
@@ -58,21 +60,34 @@ export default function Home() {
           <span className="text-slate-300">|</span>
           <button className="p-0.5 hover:text-slate-900"><Sun className="w-3.5 h-3.5" /></button>
           <span className="text-slate-300">|</span>
-          <div className="space-x-1.5 font-bold">
-            <button className="hover:text-emerald-800">हिंदी</button>
-            <span className="text-slate-400">|</span>
-            <button className="text-emerald-900 font-extrabold">English</button>
+          
+          {/* Regional Language Dropdown */}
+          <div className="flex items-center space-x-1.5 font-bold text-slate-800">
+            <Globe className="w-3.5 h-3.5 text-emerald-900" />
+            <select 
+              value={selectedLanguage}
+              onChange={(e) => setSelectedLanguage(e.target.value)}
+              className="bg-white border border-slate-300 rounded px-2 py-0.5 text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-800 cursor-pointer"
+            >
+              <option value="en">English</option>
+              <option value="hi">हिंदी (Hindi)</option>
+              <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
+              <option value="mr">मराठी (Marathi)</option>
+              <option value="te">తెలుగు (Telugu)</option>
+              <option value="gu">ગુજરાતી (Gujarati)</option>
+              <option value="bn">বাংলা (Bengali)</option>
+            </select>
           </div>
         </div>
       </div>
 
       {/* Disclaimer Notice Banner */}
-      <div className="bg-amber-50 border-b border-amber-200 px-8 py-1.5 text-[11px] font-bold text-amber-900 flex items-center justify-between">
+      <div className="bg-amber-50 border-b border-amber-200 px-8 py-1.5 text-xs font-bold text-amber-900 flex items-center justify-between">
         <span className="flex items-center gap-1.5">
-          <ShieldAlert className="w-3.5 h-3.5 text-amber-700" />
+          <ShieldAlert className="w-4 h-4 text-amber-700 shrink-0" />
           <span>Demonstration Prototype for Smart India Hackathon (SIH) 2026 — Not an Official Government Portal</span>
         </span>
-        <span className="text-amber-700">Team Project Showcase</span>
+        <span className="text-amber-700 font-semibold">Team Project Showcase</span>
       </div>
 
       {/* 2. Main Brand Header */}
@@ -85,9 +100,8 @@ export default function Home() {
           <div className="border-l border-slate-300 pl-5 py-1">
             <div className="flex items-center space-x-2">
               <h1 className="text-3xl font-black text-emerald-950 tracking-tight">Kisaan Setu</h1>
-              <span className="text-emerald-600 font-bold text-xl">🌿</span>
             </div>
-            <p className="text-xs text-slate-500 font-bold tracking-wide mt-0.5">Digital Procurement Management Platform</p>
+            <p className="text-sm text-slate-500 font-bold tracking-wide mt-0.5">Digital Procurement Management Platform</p>
           </div>
         </div>
 
@@ -140,28 +154,28 @@ export default function Home() {
       </nav>
 
       {/* 4. Hero Banner Section */}
-      <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-12 overflow-hidden">
+      <section className="relative bg-gradient-to-r from-emerald-100 via-emerald-50 to-amber-50 border-b border-emerald-200 py-14 overflow-hidden">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
           
-          <div className="lg:col-span-7 space-y-5 z-10">
+          <div className="lg:col-span-7 space-y-6 z-10">
             <h2 className="text-4xl sm:text-5xl font-black text-emerald-950 leading-tight">
               Digital Procurement Services <br />for Farmers
             </h2>
-            <p className="text-slate-700 text-base font-semibold leading-relaxed max-w-xl">
+            <p className="text-slate-700 text-lg font-semibold leading-relaxed max-w-2xl">
               Book your procurement slot, track your queue, know your status and get timely updates — all in one place.
             </p>
 
-            <div className="flex flex-wrap gap-4 pt-3">
+            <div className="flex flex-wrap gap-4 pt-2">
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-emerald-900 hover:bg-emerald-950 text-white px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 shadow-md transition"
+                className="bg-emerald-900 hover:bg-emerald-950 text-white px-8 py-4 rounded-md font-bold text-base flex items-center space-x-3 shadow-md transition"
               >
                 <Calendar className="w-5 h-5 text-emerald-300" />
                 <span>Book a Procurement Slot</span>
               </button>
               <button 
                 onClick={() => navigate('/login')}
-                className="bg-white hover:bg-emerald-50 text-emerald-950 border-2 border-emerald-300 px-7 py-3.5 rounded-md font-bold text-sm flex items-center space-x-2.5 transition shadow-sm"
+                className="bg-white hover:bg-emerald-50 text-emerald-950 border-2 border-emerald-300 px-8 py-4 rounded-md font-bold text-base flex items-center space-x-3 transition shadow-sm"
               >
                 <LineChart className="w-5 h-5 text-emerald-800" />
                 <span>Track My Status</span>
@@ -170,15 +184,15 @@ export default function Home() {
           </div>
 
           <div className="lg:col-span-5 relative flex justify-end">
-            <div className="w-full h-72 bg-emerald-800/10 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center">
+            <div className="w-full h-80 bg-emerald-800/10 rounded-2xl overflow-hidden border-2 border-emerald-200 shadow-lg relative flex items-center justify-center bg-cover bg-center">
               <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent"></div>
               
-              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-2.5 rounded shadow text-right">
-                <p className="text-xs font-black text-slate-800">Empowering Farmers</p>
-                <p className="text-xs font-black text-slate-800">Strengthening India</p>
-                <div className="flex justify-end gap-1 mt-1">
-                  <div className="w-5 h-1 bg-amber-500 rounded-full"></div>
-                  <div className="w-5 h-1 bg-emerald-700 rounded-full"></div>
+              <div className="absolute top-4 right-4 bg-white/95 backdrop-blur-sm px-4 py-3 rounded shadow text-right">
+                <p className="text-sm font-black text-slate-800">Empowering Farmers</p>
+                <p className="text-sm font-black text-slate-800">Strengthening India</p>
+                <div className="flex justify-end gap-1 mt-1.5">
+                  <div className="w-6 h-1.5 bg-amber-500 rounded-full"></div>
+                  <div className="w-6 h-1.5 bg-emerald-700 rounded-full"></div>
                 </div>
               </div>
             </div>
@@ -188,46 +202,46 @@ export default function Home() {
       </section>
 
       {/* 5. Four Key Feature Badges */}
-      <section className="bg-white py-8 border-b border-slate-200 shadow-sm">
+      <section className="bg-white py-10 border-b border-slate-200 shadow-sm">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Calendar className="w-7 h-7" />
+            <div className="p-4 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Calendar className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-base">Slot Booking</h3>
-              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Choose a convenient procurement date and time.</p>
+              <h3 className="font-extrabold text-slate-900 text-lg">Slot Booking</h3>
+              <p className="text-sm text-slate-600 mt-1 font-semibold leading-relaxed">Choose a convenient procurement date and time.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Users className="w-7 h-7" />
+            <div className="p-4 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Users className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-base">Real-Time Queue</h3>
-              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Know your queue position and estimated waiting time.</p>
+              <h3 className="font-extrabold text-slate-900 text-lg">Real-Time Queue</h3>
+              <p className="text-sm text-slate-600 mt-1 font-semibold leading-relaxed">Know your queue position and estimated waiting time.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4 border-r border-slate-200/80 last:border-0 pr-4">
-            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <Bell className="w-7 h-7" />
+            <div className="p-4 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <Bell className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-base">Smart Notifications</h3>
-              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Receive updates on your slot, procurement and payment status.</p>
+              <h3 className="font-extrabold text-slate-900 text-lg">Smart Notifications</h3>
+              <p className="text-sm text-slate-600 mt-1 font-semibold leading-relaxed">Receive updates on your slot, procurement and payment status.</p>
             </div>
           </div>
 
           <div className="flex items-start space-x-4">
-            <div className="p-3.5 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
-              <IndianRupee className="w-7 h-7" />
+            <div className="p-4 bg-emerald-100 text-emerald-800 rounded-full shrink-0">
+              <IndianRupee className="w-8 h-8" />
             </div>
             <div>
-              <h3 className="font-extrabold text-slate-900 text-base">Payment Tracking</h3>
-              <p className="text-xs text-slate-600 mt-1 font-medium leading-relaxed">Track your procurement and payment status easily.</p>
+              <h3 className="font-extrabold text-slate-900 text-lg">Payment Tracking</h3>
+              <p className="text-sm text-slate-600 mt-1 font-semibold leading-relaxed">Track your procurement and payment status easily.</p>
             </div>
           </div>
 
@@ -235,64 +249,64 @@ export default function Home() {
       </section>
 
       {/* 6. How Kisaan Setu Works + Announcements */}
-      <section className="py-10 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
+      <section className="py-12 max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
         
-        <div className="lg:col-span-8 bg-emerald-50/60 p-7 rounded-xl border border-emerald-200 shadow-sm">
-          <h3 className="text-xl font-black text-slate-900 mb-6">How Kisaan Setu Works</h3>
+        <div className="lg:col-span-8 bg-emerald-50/60 p-8 rounded-xl border border-emerald-200 shadow-sm">
+          <h3 className="text-2xl font-black text-slate-900 mb-8">How Kisaan Setu Works</h3>
 
           <div className="flex flex-col md:flex-row justify-between items-center gap-4 text-center">
             
-            <div className="flex flex-col items-center space-y-2.5 flex-1">
+            <div className="flex flex-col items-center space-y-3 flex-1">
               <div className="relative">
                 <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">1</span>
-                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><UserCheck className="w-7 h-7" /></div>
+                <div className="p-4 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><UserCheck className="w-8 h-8" /></div>
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">Register</h4>
-              <p className="text-xs text-slate-600 font-medium">Create your profile on Kisaan Setu</p>
+              <h4 className="font-extrabold text-base text-slate-900">Register</h4>
+              <p className="text-xs text-slate-600 font-bold">Create your profile on Kisaan Setu</p>
             </div>
 
-            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-6 h-6 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2.5 flex-1">
+            <div className="flex flex-col items-center space-y-3 flex-1">
               <div className="relative">
                 <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">2</span>
-                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><CalendarCheck className="w-7 h-7" /></div>
+                <div className="p-4 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><CalendarCheck className="w-8 h-8" /></div>
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">Book Slot</h4>
-              <p className="text-xs text-slate-600 font-medium">Select a date and time for procurement</p>
+              <h4 className="font-extrabold text-base text-slate-900">Book Slot</h4>
+              <p className="text-xs text-slate-600 font-bold">Select a date and time for procurement</p>
             </div>
 
-            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-6 h-6 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2.5 flex-1">
+            <div className="flex flex-col items-center space-y-3 flex-1">
               <div className="relative">
                 <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">3</span>
-                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><LineChart className="w-7 h-7" /></div>
+                <div className="p-4 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><LineChart className="w-8 h-8" /></div>
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">Track Queue</h4>
-              <p className="text-xs text-slate-600 font-medium">View your position and estimated wait time</p>
+              <h4 className="font-extrabold text-base text-slate-900">Track Queue</h4>
+              <p className="text-xs text-slate-600 font-bold">View your position and estimated wait time</p>
             </div>
 
-            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-6 h-6 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2.5 flex-1">
+            <div className="flex flex-col items-center space-y-3 flex-1">
               <div className="relative">
                 <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">4</span>
-                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><Truck className="w-7 h-7" /></div>
+                <div className="p-4 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><Truck className="w-8 h-8" /></div>
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">Procurement</h4>
-              <p className="text-xs text-slate-600 font-medium">Get your produce procured at the centre</p>
+              <h4 className="font-extrabold text-base text-slate-900">Procurement</h4>
+              <p className="text-xs text-slate-600 font-bold">Get your produce procured at the centre</p>
             </div>
 
-            <ChevronRight className="w-5 h-5 text-slate-400 hidden md:block" />
+            <ChevronRight className="w-6 h-6 text-slate-400 hidden md:block" />
 
-            <div className="flex flex-col items-center space-y-2.5 flex-1">
+            <div className="flex flex-col items-center space-y-3 flex-1">
               <div className="relative">
                 <span className="absolute -top-1 -left-2 bg-emerald-900 text-white font-extrabold text-xs w-6 h-6 rounded-full flex items-center justify-center border-2 border-white">5</span>
-                <div className="p-3.5 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><IndianRupee className="w-7 h-7" /></div>
+                <div className="p-4 bg-white text-emerald-900 rounded-full border border-emerald-200 shadow"><IndianRupee className="w-8 h-8" /></div>
               </div>
-              <h4 className="font-extrabold text-sm text-slate-900">Get Paid</h4>
-              <p className="text-xs text-slate-600 font-medium">Track your payment status</p>
+              <h4 className="font-extrabold text-base text-slate-900">Get Paid</h4>
+              <p className="text-xs text-slate-600 font-bold">Track your payment status</p>
             </div>
 
           </div>
@@ -303,20 +317,20 @@ export default function Home() {
             <div className="flex justify-between items-center border-b border-slate-200 pb-3 mb-4">
               <div className="flex items-center space-x-2">
                 <Bell className="w-5 h-5 text-emerald-800" />
-                <h4 className="font-extrabold text-sm text-slate-900">Announcements & Updates</h4>
+                <h4 className="font-extrabold text-base text-slate-900">Announcements & Updates</h4>
               </div>
               <a href="#all" className="text-xs font-bold text-emerald-700 hover:underline">View All</a>
             </div>
 
-            <div className="space-y-3.5">
+            <div className="space-y-4">
               {announcements.map((item) => (
-                <div key={item.id} className="flex items-start justify-between text-xs border-b border-slate-100 pb-2.5 last:border-0">
-                  <div className="space-y-1 pr-2">
+                <div key={item.id} className="flex items-start justify-between text-xs border-b border-slate-100 pb-3 last:border-0">
+                  <div className="space-y-1.5 pr-2">
                     <span className={`text-[10px] text-white font-black px-2 py-0.5 rounded ${item.tagColor}`}>
                       {item.tag}
                     </span>
-                    <p className="font-bold text-slate-800 text-xs leading-snug">{item.title}</p>
-                    <p className="text-[11px] text-slate-400 font-semibold">{item.date}</p>
+                    <p className="font-bold text-slate-800 text-sm leading-snug">{item.title}</p>
+                    <p className="text-xs text-slate-400 font-semibold">{item.date}</p>
                   </div>
                   <ChevronRight className="w-4 h-4 text-slate-400 shrink-0 mt-2" />
                 </div>
@@ -328,70 +342,70 @@ export default function Home() {
       </section>
 
       {/* 7. Procurement Metrics & Quick Links Bar */}
-      <section className="bg-slate-100 py-8 border-t border-slate-200">
+      <section className="bg-slate-100 py-10 border-t border-slate-200">
         <div className="max-w-7xl mx-auto px-8 grid grid-cols-1 lg:grid-cols-12 gap-8">
           
-          <div className="lg:col-span-8 space-y-3">
-            <p className="text-sm font-extrabold text-slate-700 flex items-center gap-1.5">
-              <MapPin className="w-4 h-4 text-emerald-800" />
+          <div className="lg:col-span-8 space-y-4">
+            <p className="text-base font-extrabold text-slate-800 flex items-center gap-2">
+              <MapPin className="w-5 h-5 text-emerald-800" />
               <span>Procurement Centres</span>
-              <span className="text-slate-400 font-semibold text-xs">(Demo Data)</span>
+              <span className="text-slate-500 font-semibold text-xs">(Demo Data)</span>
             </p>
 
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
-                <Building className="w-7 h-7 text-emerald-800 shrink-0" />
+              <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-4">
+                <Building className="w-8 h-8 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-lg font-black text-slate-900">24</p>
-                  <p className="text-xs text-slate-500 font-bold">Centres Active</p>
+                  <p className="text-xl font-black text-slate-900">24</p>
+                  <p className="text-xs text-slate-600 font-bold">Centres Active</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
-                <Users className="w-7 h-7 text-emerald-800 shrink-0" />
+              <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-4">
+                <Users className="w-8 h-8 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-lg font-black text-slate-900">1,248</p>
-                  <p className="text-xs text-slate-500 font-bold">Farmers Registered</p>
+                  <p className="text-xl font-black text-slate-900">1,248</p>
+                  <p className="text-xs text-slate-600 font-bold">Farmers Registered</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
-                <Calendar className="w-7 h-7 text-emerald-800 shrink-0" />
+              <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-4">
+                <Calendar className="w-8 h-8 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-lg font-black text-slate-900">326</p>
-                  <p className="text-xs text-slate-500 font-bold">Slots Booked Today</p>
+                  <p className="text-xl font-black text-slate-900">326</p>
+                  <p className="text-xs text-slate-600 font-bold">Slots Booked Today</p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-3.5">
-                <CheckCircle2 className="w-7 h-7 text-emerald-800 shrink-0" />
+              <div className="bg-white p-5 rounded-lg border border-slate-200 shadow-sm flex items-center space-x-4">
+                <CheckCircle2 className="w-8 h-8 text-emerald-800 shrink-0" />
                 <div>
-                  <p className="text-lg font-black text-slate-900">182</p>
-                  <p className="text-xs text-slate-500 font-bold">Procurements Completed</p>
+                  <p className="text-xl font-black text-slate-900">182</p>
+                  <p className="text-xs text-slate-600 font-bold">Procurements Completed</p>
                 </div>
               </div>
             </div>
           </div>
 
-          <div className="lg:col-span-4 bg-white p-5 rounded-lg border border-slate-200 shadow-sm space-y-3">
-            <p className="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-1.5">
+          <div className="lg:col-span-4 bg-white p-6 rounded-lg border border-slate-200 shadow-sm space-y-4">
+            <p className="text-xs font-black text-slate-800 uppercase tracking-wider flex items-center gap-2">
               <FileText className="w-4 h-4 text-emerald-800" />
               <span>Quick Links</span>
             </p>
-            <ul className="text-xs text-slate-700 font-bold space-y-2.5">
+            <ul className="text-sm text-slate-700 font-bold space-y-3">
               <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer">
                 <span>Schemes & Guidelines</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2.5">
                 <span>FAQs</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2.5">
                 <span>Downloads</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
-              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2">
+              <li className="flex justify-between items-center hover:text-emerald-800 cursor-pointer border-t border-slate-100 pt-2.5">
                 <span>Contact Us</span>
                 <ChevronRight className="w-4 h-4 text-slate-400" />
               </li>
