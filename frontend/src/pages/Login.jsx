@@ -1,14 +1,25 @@
 import { useState } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ShieldCheck, UserCheck, Building2, Lock, Phone, ArrowLeft, UserPlus, Globe, Landmark } from 'lucide-react';
+import { changeAppLanguage } from '../i18n';
 
 export default function Login() {
   const [searchParams] = useSearchParams();
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const initialRole = searchParams.get('role') === 'official' ? 'centre' : 'farmer';
   
   const [role, setRole] = useState(initialRole); // 'farmer', 'centre', or 'admin'
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem('user_language') || 'en'
+  );
+
+  const handleLanguageChange = (e) => {
+    const lng = e.target.value;
+    setSelectedLanguage(lng);
+    changeAppLanguage(lng);
+  };
 
   // Form & OTP States
   const [mobile, setMobile] = useState('');
@@ -54,8 +65,8 @@ export default function Login() {
             Logo
           </div>
           <div>
-            <h1 className="font-bold text-sm tracking-tight">Kisaan Setu Login</h1>
-            <p className="text-[10px] text-emerald-300">Digital Procurement Management Platform</p>
+            <h1 className="font-bold text-sm tracking-tight">{t('common.portalTitle')} {t('nav.login')}</h1>
+            <p className="text-[10px] text-emerald-300">{t('common.portalSubtitle')}</p>
           </div>
         </div>
 
@@ -65,16 +76,12 @@ export default function Login() {
             <Globe className="w-3.5 h-3.5 text-emerald-400" />
             <select 
               value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
+              onChange={handleLanguageChange}
               className="bg-white border border-slate-700 rounded px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
               <option value="en">English</option>
               <option value="hi">हिंदी (Hindi)</option>
-              <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
               <option value="mr">मराठी (Marathi)</option>
-              <option value="te">తెలుగు (Telugu)</option>
-              <option value="gu">ગુજરાતી (Gujarati)</option>
-              <option value="bn">বাংলা (Bengali)</option>
             </select>
           </div>
 
@@ -83,7 +90,7 @@ export default function Login() {
             onClick={() => navigate('/')}
             className="text-xs font-semibold text-emerald-200 hover:text-white flex items-center gap-1 border-l border-emerald-800 pl-4 transition"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to Home
+            <ArrowLeft className="w-4 h-4" /> {t('nav.backToHome')}
           </button>
         </div>
       </div>
@@ -99,13 +106,13 @@ export default function Login() {
           </div>
           <h2 className="text-xl font-black text-slate-900">
             {role === 'farmer' 
-              ? 'Farmer Portal Access' 
+              ? t('login.title') 
               : role === 'centre' 
-              ? 'Procurement Centre Access' 
-              : 'Administrator Portal Access'}
+              ? t('login.centreRole') 
+              : t('login.adminRole')}
           </h2>
           <p className="text-xs text-slate-500 font-medium">
-            Enter registered credentials to access your dashboard
+            {t('login.subtitle')}
           </p>
         </div>
 
@@ -119,7 +126,7 @@ export default function Login() {
             }`}
           >
             <UserCheck className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">Farmer</span>
+            <span className="truncate">{t('login.farmerRole')}</span>
           </button>
           
           <button
@@ -130,7 +137,7 @@ export default function Login() {
             }`}
           >
             <Building2 className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">Centre</span>
+            <span className="truncate">{t('login.centreRole')}</span>
           </button>
 
           <button
@@ -141,7 +148,7 @@ export default function Login() {
             }`}
           >
             <Landmark className="w-3.5 h-3.5 shrink-0" />
-            <span className="truncate">Admin</span>
+            <span className="truncate">{t('login.adminRole')}</span>
           </button>
         </div>
 
@@ -151,13 +158,13 @@ export default function Login() {
           {role === 'farmer' ? (
             <>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Mobile Number</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.enterMobile')}</label>
                 <div className="relative">
                   <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
                     type="tel"
                     required
-                    placeholder="Enter 10-digit mobile number"
+                    placeholder={t('register.enterMobile')}
                     value={mobile}
                     onChange={(e) => setMobile(e.target.value)}
                     className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:border-emerald-800 font-medium"
@@ -167,7 +174,7 @@ export default function Login() {
 
               {otpSent && (
                 <div>
-                  <label className="block text-xs font-bold text-slate-700 mb-1">Enter 6-Digit OTP</label>
+                  <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.enterOtp')}</label>
                   <div className="relative">
                     <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                     <input
@@ -180,14 +187,14 @@ export default function Login() {
                       className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-sm focus:outline-none focus:border-emerald-800 font-medium tracking-widest"
                     />
                   </div>
-                  <p className="text-[11px] text-emerald-700 font-bold mt-1">OTP sent to your mobile (Demo: Any 6 digits)</p>
+                  <p className="text-[11px] text-emerald-700 font-bold mt-1">{t('login.sendOtp')} (Demo: Any 6 digits)</p>
                 </div>
               )}
             </>
           ) : role === 'centre' ? (
             <>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Procurement Centre ID / APMC Identifier</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.centreId')}</label>
                 <div className="relative">
                   <Building2 className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -202,7 +209,7 @@ export default function Login() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Password</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.password')}</label>
                 <div className="relative">
                   <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -219,7 +226,7 @@ export default function Login() {
           ) : (
             <>
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Ministry / Admin ID</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.adminId')}</label>
                 <div className="relative">
                   <Landmark className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -234,7 +241,7 @@ export default function Login() {
               </div>
 
               <div>
-                <label className="block text-xs font-bold text-slate-700 mb-1">Secure Passcode</label>
+                <label className="block text-xs font-bold text-slate-700 mb-1">{t('login.password')}</label>
                 <div className="relative">
                   <Lock className="w-4 h-4 text-slate-400 absolute left-3 top-3" />
                   <input
@@ -261,10 +268,8 @@ export default function Login() {
             }`}
           >
             {role === 'farmer' 
-              ? (!otpSent ? 'Send Verification OTP' : 'Verify & Log In') 
-              : role === 'centre'
-              ? 'Authorize Centre Access'
-              : 'Authorize Administrator Access'}
+              ? (!otpSent ? t('login.sendOtp') : t('login.verifyLogin')) 
+              : t('login.loginBtn')}
           </button>
         </form>
 
@@ -277,14 +282,14 @@ export default function Login() {
               className="text-xs font-bold text-emerald-800 hover:underline inline-flex items-center gap-1"
             >
               <UserPlus className="w-3.5 h-3.5" />
-              <span>First time user? Register New Farmer Profile</span>
+              <span>{t('login.firstTime')}</span>
             </button>
           </div>
         )}
       </div>
 
       <div className="text-center py-4 text-xs text-slate-500 border-t border-slate-200 font-medium">
-        Encrypted & Secured by National Agricultural Informatics Protocol
+        {t('common.encryptedSecured')}
       </div>
     </div>
   );

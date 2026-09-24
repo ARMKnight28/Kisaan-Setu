@@ -1,10 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { CheckCircle2, Clock, ShieldCheck, HelpCircle, Bell, LogOut, Globe, ArrowRight, RefreshCw } from 'lucide-react';
+import { changeAppLanguage } from '../i18n';
 
 export default function FarmerDashboard() {
   const navigate = useNavigate();
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const { t } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem('user_language') || 'en'
+  );
+
+  const handleLanguageChange = (e) => {
+    const lng = e.target.value;
+    setSelectedLanguage(lng);
+    changeAppLanguage(lng);
+  };
   const [searchId, setSearchId] = useState('');
 
   // Loaded Pass State
@@ -102,12 +113,11 @@ export default function FarmerDashboard() {
             <Globe className="w-4 h-4 text-emerald-300" />
             <select 
               value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
+              onChange={handleLanguageChange}
               className="bg-emerald-700 text-white border border-emerald-600 rounded-md px-3 py-1 text-xs font-bold focus:outline-none cursor-pointer"
             >
               <option value="en">English</option>
               <option value="hi">Hindi</option>
-              <option value="pa">Punjabi</option>
               <option value="mr">Marathi</option>
             </select>
           </div>
@@ -117,7 +127,7 @@ export default function FarmerDashboard() {
             className="bg-emerald-900 hover:bg-emerald-950 text-white text-xs px-3.5 py-1.5 rounded-md font-bold flex items-center gap-1 transition cursor-pointer"
           >
             <LogOut className="w-3.5 h-3.5" />
-            <span>Logout</span>
+            <span>{t('nav.logout')}</span>
           </button>
         </nav>
       </header>
@@ -128,7 +138,7 @@ export default function FarmerDashboard() {
           <div>
             <h2 className="text-3xl font-black text-slate-800 tracking-tight flex items-center gap-2.5">
               <RefreshCw className="w-7 h-7 text-emerald-800" />
-              <span>Track My Status</span>
+              <span>{t('dashboard.trackProcurement')}</span>
             </h2>
             <p className="text-sm text-slate-600 font-medium mt-1">
               Real-time digital mandi queue monitoring and crop procurement tracking.

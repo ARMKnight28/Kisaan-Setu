@@ -1,7 +1,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { UserPlus, ArrowLeft, Phone, MapPin, Globe, User, Home, Building, CheckCircle2, Loader2 } from 'lucide-react';
 import { registerFarmer } from '../api';
+import { changeAppLanguage } from '../i18n';
 
 // Comprehensive alphabetical mapping of all 36 States/UTs and their alphabetical districts
 const stateDistrictMap = {
@@ -45,7 +47,16 @@ const stateDistrictMap = {
 
 export default function Register() {
   const navigate = useNavigate();
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const { t } = useTranslation();
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem('user_language') || 'en'
+  );
+
+  const handleLanguageChange = (e) => {
+    const lng = e.target.value;
+    setSelectedLanguage(lng);
+    changeAppLanguage(lng);
+  };
 
   // Form States
   const [firstName, setFirstName] = useState('');
@@ -95,7 +106,7 @@ export default function Register() {
       if (res.farmer_id) localStorage.setItem('farmer_id', res.farmer_id);
       if (res.profile) localStorage.setItem('farmer_profile', JSON.stringify(res.profile));
 
-      setStatusMessage(res.supabase_synced ? 'Profile synced to Supabase & Database!' : 'Registration profile created!');
+      setStatusMessage(res.supabase_synced ? t('register.syncSuccess') : t('register.submitBtn'));
 
       // Smooth redirect directly to slot booking or dashboard
       setTimeout(() => {
@@ -133,8 +144,8 @@ export default function Register() {
             Logo
           </div>
           <div>
-            <h1 className="font-bold text-sm tracking-tight">Kisaan Setu Registration</h1>
-            <p className="text-[10px] text-emerald-300">Digital Procurement Management Platform</p>
+            <h1 className="font-bold text-sm tracking-tight">{t('common.portalTitle')} {t('register.title')}</h1>
+            <p className="text-[10px] text-emerald-300">{t('common.portalSubtitle')}</p>
           </div>
         </div>
 
@@ -144,16 +155,12 @@ export default function Register() {
             <Globe className="w-3.5 h-3.5 text-emerald-400" />
             <select 
               value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
+              onChange={handleLanguageChange}
               className="bg-white border border-slate-700 rounded px-2 py-1 text-xs font-bold text-slate-800 focus:outline-none focus:border-emerald-500 cursor-pointer"
             >
               <option value="en">English</option>
               <option value="hi">हिंदी (Hindi)</option>
-              <option value="pa">ਪੰਜਾਬੀ (Punjabi)</option>
               <option value="mr">मराठी (Marathi)</option>
-              <option value="te">తెలుగు (Telugu)</option>
-              <option value="gu">ગુજરાતી (Gujarati)</option>
-              <option value="bn">বাংলা (Bengali)</option>
             </select>
           </div>
 
@@ -162,7 +169,7 @@ export default function Register() {
             onClick={() => navigate('/')}
             className="text-xs font-semibold text-emerald-200 hover:text-white flex items-center gap-1 border-l border-emerald-800 pl-4 transition"
           >
-            <ArrowLeft className="w-4 h-4" /> Back to Home
+            <ArrowLeft className="w-4 h-4" /> {t('nav.backToHome')}
           </button>
         </div>
       </div>
@@ -173,22 +180,22 @@ export default function Register() {
           <div className="inline-flex p-2 bg-emerald-50 text-emerald-800 rounded-full mb-2">
             <UserPlus className="w-6 h-6" />
           </div>
-          <h2 className="text-xl font-black text-slate-900">New Farmer Registration</h2>
-          <p className="text-xs text-slate-500 font-medium">Create your digital procurement profile</p>
+          <h2 className="text-xl font-black text-slate-900">{t('register.title')}</h2>
+          <p className="text-xs text-slate-500 font-medium">{t('register.subtitle')}</p>
         </div>
 
         <form onSubmit={handleRegister} className="space-y-4">
           
           {/* Row 1: First Name, Middle Name, Last Name in One Line */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">Full Name</label>
+            <label className="block text-xs font-bold text-slate-700 mb-1">{t('register.fullName')}</label>
             <div className="grid grid-cols-3 gap-2">
               <div className="relative">
                 <User className="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-3" />
                 <input
                   type="text"
                   required
-                  placeholder="First Name"
+                  placeholder={t('register.firstName')}
                   value={firstName}
                   onChange={(e) => setFirstName(e.target.value)}
                   className="w-full pl-8 pr-2 py-2 border border-slate-300 rounded text-xs focus:outline-none focus:border-emerald-800 font-medium"
@@ -197,7 +204,7 @@ export default function Register() {
               <div>
                 <input
                   type="text"
-                  placeholder="Middle Name (Opt)"
+                  placeholder={t('register.middleName')}
                   value={middleName}
                   onChange={(e) => setMiddleName(e.target.value)}
                   className="w-full px-2 py-2 border border-slate-300 rounded text-xs focus:outline-none focus:border-emerald-800 font-medium"
@@ -207,7 +214,7 @@ export default function Register() {
                 <input
                   type="text"
                   required
-                  placeholder="Last Name"
+                  placeholder={t('register.lastName')}
                   value={lastName}
                   onChange={(e) => setLastName(e.target.value)}
                   className="w-full px-2 py-2 border border-slate-300 rounded text-xs focus:outline-none focus:border-emerald-800 font-medium"
@@ -218,13 +225,13 @@ export default function Register() {
 
           {/* Phone Number */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">Mobile Number</label>
+            <label className="block text-xs font-bold text-slate-700 mb-1">{t('register.mobileNumber')}</label>
             <div className="relative">
               <Phone className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="tel"
                 required
-                placeholder="Enter 10-digit mobile number"
+                placeholder={t('register.enterMobile')}
                 value={mobile}
                 onChange={(e) => setMobile(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-xs focus:outline-none focus:border-emerald-800 font-medium"
@@ -234,13 +241,13 @@ export default function Register() {
 
           {/* Home Address */}
           <div>
-            <label className="block text-xs font-bold text-slate-700 mb-1">Home Address / Village Details</label>
+            <label className="block text-xs font-bold text-slate-700 mb-1">{t('register.homeAddress')}</label>
             <div className="relative">
               <Home className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
               <input
                 type="text"
                 required
-                placeholder="Enter house no., street, village/town"
+                placeholder={t('register.enterAddress')}
                 value={address}
                 onChange={(e) => setAddress(e.target.value)}
                 className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-xs focus:outline-none focus:border-emerald-800 font-medium"
@@ -251,7 +258,7 @@ export default function Register() {
           {/* State & District Dropdowns Side-by-Side */}
           <div className="grid grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">State / Union Territory</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">{t('register.state')}</label>
               <div className="relative">
                 <MapPin className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                 <select
@@ -260,7 +267,7 @@ export default function Register() {
                   onChange={handleStateChange}
                   className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-xs font-bold bg-white focus:outline-none focus:border-emerald-800 cursor-pointer"
                 >
-                  <option value="">Select State / UT</option>
+                  <option value="">{t('register.selectState')}</option>
                   {Object.keys(stateDistrictMap).map((state) => (
                     <option key={state} value={state}>{state}</option>
                   ))}
@@ -269,7 +276,7 @@ export default function Register() {
             </div>
 
             <div>
-              <label className="block text-xs font-bold text-slate-700 mb-1">District</label>
+              <label className="block text-xs font-bold text-slate-700 mb-1">{t('register.district')}</label>
               <div className="relative">
                 <Building className="w-4 h-4 text-slate-400 absolute left-3 top-2.5" />
                 <select
@@ -279,7 +286,7 @@ export default function Register() {
                   disabled={!selectedState}
                   className="w-full pl-9 pr-3 py-2 border border-slate-300 rounded text-xs font-bold bg-white focus:outline-none focus:border-emerald-800 cursor-pointer disabled:bg-slate-100 disabled:text-slate-400"
                 >
-                  <option value="">{selectedState ? 'Select District' : 'Select State First'}</option>
+                  <option value="">{selectedState ? t('register.selectDistrict') : t('register.selectStateFirst')}</option>
                   {availableDistricts.map((district) => (
                     <option key={district} value={district}>{district}</option>
                   ))}
@@ -303,10 +310,10 @@ export default function Register() {
             {isSubmitting ? (
               <>
                 <Loader2 className="w-4 h-4 animate-spin text-emerald-300" />
-                <span>Syncing Profile to Supabase...</span>
+                <span>{t('register.syncingBtn')}</span>
               </>
             ) : (
-              <span>Register & Generate Profile</span>
+              <span>{t('register.submitBtn')}</span>
             )}
           </button>
         </form>
@@ -317,13 +324,13 @@ export default function Register() {
             onClick={() => navigate('/login')}
             className="text-xs font-bold text-emerald-800 hover:underline"
           >
-            Already registered? Sign In here
+            {t('register.alreadyRegistered')}
           </button>
         </div>
       </div>
 
       <div className="text-center py-4 text-xs text-slate-500 border-t border-slate-200 font-medium">
-        Encrypted & Secured by National Agricultural Informatics Protocol
+        {t('common.encryptedSecured')}
       </div>
     </div>
   );

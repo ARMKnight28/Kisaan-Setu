@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { ArrowRight, ArrowLeft, Globe, HelpCircle, PhoneCall, Lock, ShieldCheck, MapPin, Building2, Calendar, Clock, CheckCircle2, Download, Home, User, Package, QrCode, Loader2 } from 'lucide-react';
 import { getFarmerProfile, bookSlot } from '../api';
+import { changeAppLanguage } from '../i18n';
 
 // Cascading State & District Dataset
 const stateDistrictMap = {
@@ -41,8 +43,17 @@ const agmarknetData = {
 
 export default function SlotBooking() {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [currentStep, setCurrentStep] = useState(1);
-  const [selectedLanguage, setSelectedLanguage] = useState('en');
+  const [selectedLanguage, setSelectedLanguage] = useState(
+    localStorage.getItem('user_language') || 'en'
+  );
+
+  const handleLanguageChange = (e) => {
+    const lng = e.target.value;
+    setSelectedLanguage(lng);
+    changeAppLanguage(lng);
+  };
 
   // STEP 1 FORM STATES (Pre-filled from session or FastAPI /api/farmers/me)
   const [farmerName, setFarmerName] = useState(() => localStorage.getItem('farmer_name') || 'Ramesh Kumar');
@@ -227,16 +238,12 @@ export default function SlotBooking() {
             <Globe className="w-4 h-4 text-emerald-300" />
             <select 
               value={selectedLanguage}
-              onChange={(e) => setSelectedLanguage(e.target.value)}
+              onChange={handleLanguageChange}
               className="bg-emerald-800 text-white border border-emerald-600 rounded-md px-3 py-1 text-xs font-bold focus:outline-none cursor-pointer"
             >
               <option value="en">English</option>
               <option value="hi">Hindi</option>
-              <option value="pa">Punjabi</option>
               <option value="mr">Marathi</option>
-              <option value="te">Telugu</option>
-              <option value="gu">Gujarati</option>
-              <option value="bn">Bengali</option>
             </select>
           </div>
         </nav>
@@ -261,7 +268,7 @@ export default function SlotBooking() {
               {currentStep > 1 ? <CheckCircle2 className="w-5 h-5 text-white" /> : '1'}
             </div>
             <div>
-              <p className={`text-sm ${currentStep === 1 ? 'font-black text-emerald-950' : 'font-bold text-slate-700'}`}>Farmer & Crop Details</p>
+              <p className={`text-sm ${currentStep === 1 ? 'font-black text-emerald-950' : 'font-bold text-slate-700'}`}>{t('slotBooking.step1Tab')}</p>
             </div>
           </div>
 
@@ -282,7 +289,7 @@ export default function SlotBooking() {
               {currentStep > 2 ? <CheckCircle2 className="w-5 h-5 text-white" /> : '2'}
             </div>
             <div>
-              <p className={`text-sm ${currentStep === 2 ? 'font-black text-emerald-950' : 'font-bold text-slate-700'}`}>Mandi & Slot Selection</p>
+              <p className={`text-sm ${currentStep === 2 ? 'font-black text-emerald-950' : 'font-bold text-slate-700'}`}>{t('slotBooking.step2Tab')}</p>
             </div>
           </div>
 
@@ -299,7 +306,7 @@ export default function SlotBooking() {
             </div>
             <div>
               <p className={`text-sm ${currentStep >= 3 ? 'font-black text-emerald-950' : 'font-bold text-slate-500'}`}>
-                {currentStep === 4 ? 'Booking Confirmed' : 'Review & Confirm'}
+                {currentStep === 4 ? t('slotBooking.step4Tab') : t('slotBooking.step3Tab')}
               </p>
             </div>
           </div>
@@ -315,9 +322,9 @@ export default function SlotBooking() {
           <div>
             <div className="mb-6 flex items-center justify-between border-b border-slate-200 pb-4">
               <div>
-                <h2 className="text-2xl font-black text-slate-800 tracking-tight">Farmer & Crop Registry</h2>
+                <h2 className="text-2xl font-black text-slate-800 tracking-tight">{t('slotBooking.farmerRegistry')}</h2>
                 <p className="text-sm text-slate-600 font-medium mt-0.5">
-                  Ensure details match your land records for seamless APMC verification.
+                  {t('slotBooking.farmerRegistrySub')}
                 </p>
               </div>
               <span className="text-xs font-bold bg-emerald-100 text-emerald-900 px-3.5 py-1.5 rounded-full border border-emerald-200 flex items-center gap-1.5">
@@ -330,7 +337,7 @@ export default function SlotBooking() {
                 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
                   <div>
-                    <label className="block text-sm font-extrabold text-slate-700 mb-1.5">Farmer Name <span className="text-red-500">*</span></label>
+                    <label className="block text-sm font-extrabold text-slate-700 mb-1.5">{t('slotBooking.farmerName')} <span className="text-red-500">*</span></label>
                     <input
                       type="text"
                       required
@@ -341,7 +348,7 @@ export default function SlotBooking() {
                   </div>
 
                   <div>
-                    <label className="block text-sm font-extrabold text-slate-700 mb-1.5">Mobile Number <span className="text-red-500">*</span></label>
+                    <label className="block text-sm font-extrabold text-slate-700 mb-1.5">{t('slotBooking.mobileNumber')} <span className="text-red-500">*</span></label>
                     <input
                       type="tel"
                       required
@@ -353,7 +360,7 @@ export default function SlotBooking() {
                 </div>
 
                 <div>
-                  <label className="block text-sm font-extrabold text-slate-700 mb-1.5">Home Address / Village Details <span className="text-red-500">*</span></label>
+                  <label className="block text-sm font-extrabold text-slate-700 mb-1.5">{t('slotBooking.address')} <span className="text-red-500">*</span></label>
                   <input
                     type="text"
                     required
@@ -364,7 +371,7 @@ export default function SlotBooking() {
                 </div>
 
                 <div className="bg-slate-50/90 p-5 border border-slate-200 rounded-xl space-y-3.5">
-                  <span className="text-xs font-black text-slate-600 uppercase tracking-wider block">Agmarknet Commodity Selection</span>
+                  <span className="text-xs font-black text-slate-600 uppercase tracking-wider block">{t('slotBooking.commoditySelection')}</span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <div>
                       <label className="block text-xs font-bold text-slate-700 mb-1">Commodity Group <span className="text-red-500">*</span></label>
