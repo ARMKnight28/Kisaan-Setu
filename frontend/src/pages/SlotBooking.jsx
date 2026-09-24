@@ -1,6 +1,7 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowRight, ArrowLeft, Globe, HelpCircle, PhoneCall, Lock, ShieldCheck, MapPin, Building2, Calendar, Clock, CheckCircle2, Download, Home, User, Package, QrCode } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Globe, HelpCircle, PhoneCall, Lock, ShieldCheck, MapPin, Building2, Calendar, Clock, CheckCircle2, Download, Home, User, Package, QrCode, Loader2 } from 'lucide-react';
+import { getFarmerProfile, bookSlot } from '../api';
 
 // Cascading State & District Dataset
 const stateDistrictMap = {
@@ -43,17 +44,17 @@ export default function SlotBooking() {
   const [currentStep, setCurrentStep] = useState(1);
   const [selectedLanguage, setSelectedLanguage] = useState('en');
 
-  // STEP 1 FORM STATES
-  const [farmerName, setFarmerName] = useState('Ramesh Kumar');
-  const [mobileNumber, setMobileNumber] = useState('9876543210');
-  const [address, setAddress] = useState('Village Model Town');
+  // STEP 1 FORM STATES (Pre-filled from session or FastAPI /api/farmers/me)
+  const [farmerName, setFarmerName] = useState(() => localStorage.getItem('farmer_name') || 'Ramesh Kumar');
+  const [mobileNumber, setMobileNumber] = useState(() => localStorage.getItem('farmer_mobile') || '9876543210');
+  const [address, setAddress] = useState(() => localStorage.getItem('farmer_address') || 'Village Model Town');
   const [selectedGroup, setSelectedGroup] = useState('');
   const [selectedCrop, setSelectedCrop] = useState('');
   const [estimatedQuantity, setEstimatedQuantity] = useState('85');
 
   // STEP 2 FORM STATES
-  const [selectedState, setSelectedState] = useState('Maharashtra');
-  const [selectedDistrict, setSelectedDistrict] = useState('Nashik');
+  const [selectedState, setSelectedState] = useState(() => localStorage.getItem('farmer_state') || 'Maharashtra');
+  const [selectedDistrict, setSelectedDistrict] = useState(() => localStorage.getItem('farmer_district') || 'Nashik');
   const [pincode, setPincode] = useState('422003');
   const [selectedMandi, setSelectedMandi] = useState('Nashik Main APMC Yard (Panchavati Market)');
   const [selectedDate, setSelectedDate] = useState('13 Oct');
@@ -61,6 +62,52 @@ export default function SlotBooking() {
   
   // STEP 4 GENERATED DETAILS
   const [generatedDbtId, setGeneratedDbtId] = useState('KS-2026-9042');
+  const [isBooking, setIsBooking] = useState(false);
+  const [profileSyncStatus, setProfileSyncStatus] = useState('');
+
+  // 1. Invoke FastAPI GET /api/farmers/me on page mount to sync Supabase/local profile
+  useEffect(() => {
+    async function loadFarmerProfile() {
+      const token = localStorage.getItem('auth_token');
+      const mobile = localStorage.getItem('farmer_mobile');
+
+      try {
+        const response = await getFarmerProfile({ token, mobile });
+        if (response && response.profile) {
+          const prof = response.profile;
+          if (prof.full_name) setFarmerName(prof.full_name);
+          if (prof.mobile_number) setMobileNumber(prof.mobile_number);
+          if (prof.home_address) setAddress(prof.home_address);
+          if (prof.state && stateDistrictMap[prof.state]) {
+            setSelectedState(prof.state);
+            if (prof.district) setSelectedDistrict(prof.district);
+          }
+          setProfileSyncStatus(response.source?.includes('supabase') ? 'Supabase Verified' : 'Profile Synced');
+          return;
+        }
+      } catch (err) {
+        console.warn("Could not fetch remote profile, using stored session:", err);
+      }
+
+      // Fallback: Populate from stored session state
+      const savedName = localStorage.getItem('farmer_name');
+      const savedMobile = localStorage.getItem('farmer_mobile');
+      const savedAddress = localStorage.getItem('farmer_address');
+      const savedState = localStorage.getItem('farmer_state');
+      const savedDistrict = localStorage.getItem('farmer_district');
+
+      if (savedName) setFarmerName(savedName);
+      if (savedMobile) setMobileNumber(savedMobile);
+      if (savedAddress) setAddress(savedAddress);
+      if (savedState && stateDistrictMap[savedState]) {
+        setSelectedState(savedState);
+        if (savedDistrict) setSelectedDistrict(savedDistrict);
+      }
+      setProfileSyncStatus('Session Loaded');
+    }
+
+    loadFarmerProfile();
+  }, []);
 
   const availableDistricts = selectedState ? stateDistrictMap[selectedState] || [] : [];
   const availableMandis = districtMandiMap[selectedDistrict] || [];
@@ -101,13 +148,44 @@ export default function SlotBooking() {
     setCurrentStep(3);
   };
 
-  const handleFinalConfirm = () => {
-    const passId = `KS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+  // Step 3 Review & Final Confirm -> Carry forward verified profile to Gate Pass endpoint
+  const handleFinalConfirm = async () => {
+    setIsBooking(true);
+
+    const bookingPayload = {
+      farmer_id: localStorage.getItem('farmer_id') ? parseInt(localStorage.getItem('farmer_id')) : null,
+      farmer_name: farmerName,
+      mobile_number: mobileNumber,
+      home_address: address,
+      crop_type: selectedCrop,
+      quantity_quintals: parseInt(estimatedQuantity) || 0,
+      mandi_name: selectedMandi,
+      slot_date: selectedDate,
+      slot_time: selectedTimeSlot,
+      vehicle: 'Tractor Trolley',
+      auth_token: localStorage.getItem('auth_token')
+    };
+
+    let passId = `KS-2026-${Math.floor(1000 + Math.random() * 9000)}`;
+
+    try {
+      const result = await bookSlot(bookingPayload);
+      if (result && result.gate_pass_id) {
+        passId = result.gate_pass_id;
+      } else if (result && result.booking_details && result.booking_details.gate_pass_id) {
+        passId = result.booking_details.gate_pass_id;
+      }
+    } catch (err) {
+      console.warn("Backend booking offline, generating local pass:", err);
+    }
+
     setGeneratedDbtId(passId);
 
     const existingPasses = JSON.parse(localStorage.getItem('farmer_passes')) || [];
     const newPass = {
       id: passId,
+      farmerName: farmerName,
+      mobile: mobileNumber,
       crop: selectedCrop,
       quantity: `${estimatedQuantity} Quintals`,
       mandi: selectedMandi,
@@ -117,6 +195,7 @@ export default function SlotBooking() {
     };
 
     localStorage.setItem('farmer_passes', JSON.stringify([newPass, ...existingPasses]));
+    setIsBooking(false);
     setCurrentStep(4);
   };
 
@@ -242,7 +321,7 @@ export default function SlotBooking() {
                 </p>
               </div>
               <span className="text-xs font-bold bg-emerald-100 text-emerald-900 px-3.5 py-1.5 rounded-full border border-emerald-200 flex items-center gap-1.5">
-                <ShieldCheck className="w-4 h-4 text-emerald-700" /> e-KYC Verified
+                <ShieldCheck className="w-4 h-4 text-emerald-700" /> {profileSyncStatus || 'e-KYC Verified'}
               </span>
             </div>
 
@@ -723,11 +802,21 @@ export default function SlotBooking() {
 
                   <button
                     type="button"
+                    disabled={isBooking}
                     onClick={handleFinalConfirm}
-                    className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3.5 rounded-lg font-extrabold text-xs tracking-wider flex items-center space-x-2 transition shadow-sm cursor-pointer"
+                    className="bg-emerald-800 hover:bg-emerald-900 text-white px-8 py-3.5 rounded-lg font-extrabold text-xs tracking-wider flex items-center space-x-2 transition shadow-sm cursor-pointer disabled:opacity-75"
                   >
-                    <span>CONFIRM & GENERATE GATE PASS</span>
-                    <QrCode className="w-4 h-4" />
+                    {isBooking ? (
+                      <>
+                        <Loader2 className="w-4 h-4 animate-spin text-emerald-300" />
+                        <span>ISSUING GATE PASS...</span>
+                      </>
+                    ) : (
+                      <>
+                        <span>CONFIRM & GENERATE GATE PASS</span>
+                        <QrCode className="w-4 h-4" />
+                      </>
+                    )}
                   </button>
                 </div>
 

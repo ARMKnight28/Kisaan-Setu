@@ -104,7 +104,7 @@ export default function Home() {
             <span>Login</span>
           </button>
           <button 
-            onClick={() => navigate('/login?role=farmer')}
+            onClick={() => navigate('/register')}
             className="bg-emerald-900 hover:bg-emerald-950 text-white px-6 py-2.5 rounded-md font-bold text-sm flex items-center space-x-2 transition shadow-sm"
           >
             <UserPlus className="w-4 h-4" />

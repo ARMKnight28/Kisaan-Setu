@@ -10,7 +10,13 @@ class Farmer(Base):
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String, nullable=False)
     phone = Column(String, unique=True, index=True, nullable=False)
-    location = Column(String, nullable=False)
+    location = Column(String, nullable=True)
+    address = Column(String, nullable=True)
+    state = Column(String, nullable=True)
+    district = Column(String, nullable=True)
+    auth_token = Column(String, nullable=True, index=True)
+    created_at = Column(DateTime, default=datetime.utcnow)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
 
     bookings = relationship("SlotBooking", back_populates="farmer")
 
@@ -35,6 +41,9 @@ class SlotBooking(Base):
     crop_type = Column(String, nullable=False)
     quantity_quintals = Column(Integer, nullable=False)
     slot_date = Column(String, nullable=False)
+    slot_time = Column(String, nullable=True)
+    gate_pass_id = Column(String, nullable=True, index=True)
+    vehicle = Column(String, default="Tractor Trolley")
     status = Column(String, default="Confirmed")
     created_at = Column(DateTime, default=datetime.utcnow)
 

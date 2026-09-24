@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { UserPlus, ArrowLeft, Phone, MapPin, Globe, User, Home, Building } from 'lucide-react';
+import { UserPlus, ArrowLeft, Phone, MapPin, Globe, User, Home, Building, CheckCircle2, Loader2 } from 'lucide-react';
+import { registerFarmer } from '../api';
 
 // Comprehensive alphabetical mapping of all 36 States/UTs and their alphabetical districts
 const stateDistrictMap = {
@@ -54,6 +55,8 @@ export default function Register() {
   const [address, setAddress] = useState('');
   const [selectedState, setSelectedState] = useState('');
   const [selectedDistrict, setSelectedDistrict] = useState('');
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [statusMessage, setStatusMessage] = useState('');
 
   // Available districts based on state selection
   const availableDistricts = selectedState ? stateDistrictMap[selectedState] || [] : [];
@@ -63,17 +66,55 @@ export default function Register() {
     setSelectedDistrict(''); // Reset district when state changes
   };
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
+    setIsSubmitting(true);
+    setStatusMessage('');
+
     const fullName = `${firstName} ${middleName ? middleName + ' ' : ''}${lastName}`.trim();
-    
-    localStorage.setItem('auth_token', 'demo-token-12345');
-    localStorage.setItem('user_role', 'farmer');
-    localStorage.setItem('farmer_name', fullName);
-    localStorage.setItem('farmer_district', selectedDistrict || selectedState);
-    
-    alert('Registration successful! Redirecting to your dashboard.');
-    navigate('/farmer/dashboard');
+    const payload = {
+      full_name: fullName,
+      mobile_number: mobile.trim(),
+      home_address: address.trim(),
+      state: selectedState,
+      district: selectedDistrict,
+    };
+
+    try {
+      // 1. Invoke FastAPI POST /api/farmers/register (syncs to Supabase / local DB)
+      const res = await registerFarmer(payload);
+
+      const token = res.auth_token || `ks_tok_${Date.now()}`;
+      localStorage.setItem('auth_token', token);
+      localStorage.setItem('user_role', 'farmer');
+      localStorage.setItem('farmer_name', fullName);
+      localStorage.setItem('farmer_mobile', mobile.trim());
+      localStorage.setItem('farmer_address', address.trim());
+      localStorage.setItem('farmer_state', selectedState);
+      localStorage.setItem('farmer_district', selectedDistrict || selectedState);
+      if (res.farmer_id) localStorage.setItem('farmer_id', res.farmer_id);
+      if (res.profile) localStorage.setItem('farmer_profile', JSON.stringify(res.profile));
+
+      setStatusMessage(res.supabase_synced ? 'Profile synced to Supabase & Database!' : 'Registration profile created!');
+
+      // Smooth redirect directly to slot booking or dashboard
+      setTimeout(() => {
+        navigate('/farmer/book-slot');
+      }, 600);
+    } catch (err) {
+      console.error("Registration error:", err);
+      // Fallback save to ensure offline usability
+      localStorage.setItem('auth_token', `ks_tok_local_${Date.now()}`);
+      localStorage.setItem('user_role', 'farmer');
+      localStorage.setItem('farmer_name', fullName);
+      localStorage.setItem('farmer_mobile', mobile.trim());
+      localStorage.setItem('farmer_address', address.trim());
+      localStorage.setItem('farmer_state', selectedState);
+      localStorage.setItem('farmer_district', selectedDistrict || selectedState);
+      navigate('/farmer/book-slot');
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -247,11 +288,26 @@ export default function Register() {
             </div>
           </div>
 
+          {statusMessage && (
+            <div className="p-2.5 rounded bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold text-center flex items-center justify-center space-x-1.5 animate-pulse">
+              <CheckCircle2 className="w-4 h-4 text-emerald-700" />
+              <span>{statusMessage}</span>
+            </div>
+          )}
+
           <button
             type="submit"
-            className="w-full bg-emerald-900 hover:bg-emerald-950 text-white py-3 rounded font-bold text-xs uppercase tracking-wider transition shadow-sm mt-2"
+            disabled={isSubmitting}
+            className="w-full bg-emerald-900 hover:bg-emerald-950 text-white py-3 rounded font-bold text-xs uppercase tracking-wider transition shadow-sm mt-2 flex items-center justify-center space-x-2 disabled:opacity-75 cursor-pointer"
           >
-            Register & Generate Profile
+            {isSubmitting ? (
+              <>
+                <Loader2 className="w-4 h-4 animate-spin text-emerald-300" />
+                <span>Syncing Profile to Supabase...</span>
+              </>
+            ) : (
+              <span>Register & Generate Profile</span>
+            )}
           </button>
         </form>
 
